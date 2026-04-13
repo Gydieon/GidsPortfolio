@@ -1,0 +1,191 @@
+/* ============================================================
+   BOTANTECH DECORATOR — circuit leaves & glowing plant motifs
+   Injected into all portfolio pages
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* ── CSS Variables override ─────────────────────────────── */
+:root {
+  --bt-leaf-1: #1e4d2b;
+  --bt-leaf-2: #2d6e3e;
+  --bt-glow:   #4ade80;
+  --bt-glow2:  #22d3a0;
+  --bt-dark:   #0a1a0f;
+  --bt-vine:   rgba(74,222,128,0.18);
+  --bt-pulse:  rgba(74,222,128,0.08);
+}
+
+/* ── Body base ──────────────────────────────────────────── */
+body {
+  font-family: 'Outfit', sans-serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── CORNER LEAF CLUSTERS ──────────────────────────────── */
+.bt-corner {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+}
+.bt-corner-tl { top: 0; left: 0; transform: none; }
+.bt-corner-tr { top: 0; right: 0; transform: scaleX(-1); }
+.bt-corner-bl { bottom: 0; left: 0; transform: scaleY(-1); }
+.bt-corner-br { bottom: 0; right: 0; transform: scale(-1,-1); }
+
+/* ── PAGE HEADER botanical strip ──────────────────────── */
+.page-header {
+  position: relative;
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 95% 50%, rgba(74,222,128,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 5% 50%, rgba(34,211,160,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.page-header .bt-branch {
+  position: absolute;
+  right: -20px; top: -10px;
+  width: 260px; height: 130px;
+  opacity: 0.22;
+}
+.page-header .bt-branch-l {
+  position: absolute;
+  left: -10px; bottom: -10px;
+  width: 180px; height: 100px;
+  opacity: 0.15;
+  transform: scaleX(-1) rotate(15deg);
+}
+
+/* ── HERO BOTANICAL OVERLAY ────────────────────────────── */
+.hero {
+  position: relative;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 45vw; height: 100%;
+  background:
+    radial-gradient(ellipse 70% 70% at 80% 30%, rgba(74,222,128,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-botanical {
+  position: absolute;
+  top: 0; right: 0;
+  width: 340px; height: 340px;
+  pointer-events: none;
+  opacity: 0.12;
+  z-index: 0;
+}
+
+/* ── FLOATING LEAF PARTICLES ───────────────────────────── */
+.bt-particles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.bt-particle {
+  position: absolute;
+  opacity: 0;
+  animation: bt-float linear infinite;
+}
+@keyframes bt-float {
+  0%   { transform: translateY(100vh) rotate(0deg) scale(0.6); opacity: 0; }
+  10%  { opacity: 0.35; }
+  90%  { opacity: 0.2; }
+  100% { transform: translateY(-120px) rotate(360deg) scale(1); opacity: 0; }
+}
+
+/* ── SECTION VINE DIVIDERS ─────────────────────────────── */
+.bt-vine-divider {
+  width: 100%;
+  height: 40px;
+  position: relative;
+  overflow: visible;
+  margin: 0.5rem 0;
+}
+
+/* ── CARD HOVER LEAF GLOW ──────────────────────────────── */
+.value-card, .quick-card, .exp-body, .contact-form-card {
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.value-card::before, .quick-card::before {
+  content: '';
+  position: absolute;
+  bottom: -20px; right: -20px;
+  width: 80px; height: 80px;
+  background: radial-gradient(circle, rgba(74,222,128,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  transition: transform 0.4s, opacity 0.4s;
+  transform: scale(0.8);
+  opacity: 0;
+}
+.value-card:hover::before, .quick-card:hover::before {
+  transform: scale(2.2);
+  opacity: 1;
+}
+.value-card:hover, .quick-card:hover {
+  box-shadow: 0 4px 24px rgba(74,222,128,0.1);
+}
+
+/* ── NAV botanical accent ─────────────────────────────── */
+nav {
+  position: relative;
+  z-index: 100;
+}
+nav::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(74,222,128,0.3), transparent);
+}
+
+/* ── FOOTER botanical base ────────────────────────────── */
+footer {
+  position: relative;
+  overflow: hidden;
+}
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(74,222,128,0.4), transparent);
+}
+.ft-botanical {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 220px; height: 90px;
+  opacity: 0.1;
+  pointer-events: none;
+}
+.ft-botanical-l {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 160px; height: 70px;
+  opacity: 0.08;
+  pointer-events: none;
+  transform: scaleX(-1);
+}
+
+/* ── Scrollbar styling ────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--bt-leaf-2), var(--bt-glow));
+  border-radius: 3px;
+}

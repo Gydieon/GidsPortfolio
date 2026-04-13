@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>osTicket Ticket Resolution & Escalation Guide — Gideon Enejo</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="botantech.css" />
+  <style>
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: var(--white);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .video-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .video-thumbnail {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+
+    .video-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .video-link:hover .play-button {
+      background: var(--green);
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      padding: 1.2rem 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+
+    .breadcrumb a {
+      color: var(--green);
+      transition: opacity .2s;
+    }
+
+    .breadcrumb a:hover {
+      opacity: 0.7;
+    }
+
+    .breadcrumb-sep {
+      opacity: 0.4;
+    }
+
+    /* ── HERO ── */
+    .proj-hero {
+      background: linear-gradient(135deg, var(--green) 0%, #0f3320 100%);
+      padding: 4rem 5% 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proj-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234ade80' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .proj-hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .proj-type-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(74, 222, 128, 0.15);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      color: #4ade80;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.35rem 0.9rem;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+    }
+
+    .proj-hero h1 {
+      color: #fff;
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 1rem;
+      line-height: 1.15;
+    }
+
+    .proj-hero-desc {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      max-width: 620px;
+      margin-bottom: 2.5rem;
+    }
+
+    .proj-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .proj-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .proj-meta-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .proj-meta-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .hero-leaf-r {
+      position: absolute;
+      right: -80px;
+      top: -40px;
+      width: 450px;
+      height: auto;
+      pointer-events: none;
+      opacity: 0.12;
+      z-index: 0;
+    }
+
+    /* ── SIDEBAR NAV ── */
+    .proj-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 5%;
+    }
+
+    .proj-sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+
+    .sidebar-nav {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .sidebar-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--white);
+    }
+
+    .sidebar-links {
+      list-style: none;
+    }
+
+    .sidebar-links a {
+      display: block;
+      padding: 0.8rem 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-left: 3px solid transparent;
+      transition: all 0.2s;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-links a:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar-links a:hover,
+    .sidebar-links a.active {
+      color: var(--green);
+      background: var(--green-light);
+      border-left-color: var(--green);
+    }
+
+    /* ── MAIN CONTENT ── */
+    .proj-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+    }
+
+    .proj-section {
+      scroll-margin-top: 100px;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .section-intro {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      max-width: 700px;
+    }
+
+    .content-block {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .content-block h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+    }
+
+    .content-block h5 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0.8rem;
+      margin-top: 1.5rem;
+    }
+
+    .content-block p {
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .content-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+
+    .checklist li {
+      padding: 0.6rem 0 0.6rem 1.8rem;
+      position: relative;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .checklist li:before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: bold;
+    }
+
+    /* ── CALLOUT BOXES ── */
+    .callout {
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-left: 4px solid;
+    }
+
+    .callout.info {
+      background: rgba(74, 222, 128, 0.05);
+      border-left-color: var(--green);
+      color: var(--text-dark);
+    }
+
+    .callout.warning {
+      background: rgba(245, 158, 11, 0.05);
+      border-left-color: #f59e0b;
+      color: var(--text-dark);
+    }
+
+    .callout.danger {
+      background: rgba(239, 68, 68, 0.05);
+      border-left-color: #ef4444;
+      color: var(--text-dark);
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── TABLES ── */
+    .config-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+    }
+
+    .config-table thead {
+      background: var(--off-white);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .config-table th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 700;
+      color: var(--text-dark);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .config-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .config-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .config-table tbody tr:hover {
+      background: var(--off-white);
+    }
+
+    /* ── SCREENSHOT SECTION ── */
+    .screenshot-section {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .screenshot-section:last-child {
+      border-bottom: none;
+    }
+
+    /* ── NEXT BUTTON ── */
+    .next-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--green);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .next-btn:hover {
+      background: #22c55e;
+      transform: translateX(4px);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .proj-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2rem 5%;
+      }
+
+      .proj-sidebar {
+        position: static;
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+      }
+
+      .content-block {
+        padding: 1.5rem;
+      }
+    }
+
+    /* ── PROCESS FLOW ── */
+    .process-step {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .process-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 40px;
+      width: 40px;
+      height: 40px;
+      background: var(--green);
+      color: white;
+      border-radius: 50%;
+      font-weight: bold;
+    }
+
+    .process-content h5 {
+      margin-top: 0;
+    }
+
+    /* ── STATUS BADGES ── */
+    .status-badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .status-open {
+      background: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+    }
+
+    .status-pending {
+      background: rgba(245, 158, 11, 0.1);
+      color: #f59e0b;
+    }
+
+    .status-resolved {
+      background: rgba(74, 222, 128, 0.1);
+      color: var(--green);
+    }
+
+    .status-closed {
+      background: rgba(107, 114, 128, 0.1);
+      color: #6b7280;
+    }
+
+    .status-escalated {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    /* ── COMPARISON GRID ── */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .comparison-card {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    .comparison-card h5 {
+      margin-top: 0;
+    }
+
+    .comparison-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .comparison-card li {
+      padding: 0.4rem 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div style="max-width: 1100px; margin: 0 auto; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; height: 60px;">
+      <a href="/" style="font-weight: 700; color: var(--text-dark); text-decoration: none;">osTicket Docs</a>
+      <div style="display: flex; gap: 2rem; font-size: 0.9rem;">
+        <a href="#overview" style="color: var(--text-muted); text-decoration: none; transition: color 0.2s;">Overview</a>
+        <a href="#resolution" style="color: var(--text-muted); text-decoration: none; transition: color 0.2s;">Resolution</a>
+        <a href="#escalation" style="color: var(--text-muted); text-decoration: none; transition: color 0.2s;">Escalation</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="/guides">Guides</a>
+    <span class="breadcrumb-sep">/</span>
+    <span>Ticket Resolution & Escalation</span>
+  </div>
+
+  <!-- Hero -->
+  <section class="proj-hero">
+    <svg class="hero-leaf-r" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100,20 Q120,40 115,80 Q110,120 100,160" stroke="#4ade80" stroke-width="2" fill="none"/>
+      <ellipse cx="115" cy="50" rx="12" ry="18" fill="#4ade80" opacity="0.4" transform="rotate(20 115 50)"/>
+      <ellipse cx="120" cy="90" rx="14" ry="20" fill="#4ade80" opacity="0.35" transform="rotate(35 120 90)"/>
+      <ellipse cx="110" cy="130" rx="12" ry="18" fill="#4ade80" opacity="0.3" transform="rotate(25 110 130)"/>
+    </svg>
+    <div class="proj-hero-inner">
+      <span class="proj-type-badge">💬 Workflow Guide</span>
+      <h1>Ticket Resolution & Escalation</h1>
+      <p class="proj-hero-desc">
+        Master the complete lifecycle of ticket management in osTicket. Learn how to resolve issues efficiently, escalate problems appropriately, and maintain service quality through proper workflow management.
+      </p>
+      <div class="proj-meta-row">
+        <div class="proj-meta-item">
+          <span class="proj-meta-label">Workflow Type</span>
+          <span class="proj-meta-value">Ticket Handling</span>
+        </div>
+        <div class="proj-meta-item">
+          <span class="proj-meta-label">Complexity Level</span>
+          <span class="proj-meta-value">Intermediate</span>
+        </div>
+        <div class="proj-meta-item">
+          <span class="proj-meta-label">Time to Read</span>
+          <span class="proj-meta-value">12–15 min</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Layout -->
+  <div class="proj-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="proj-sidebar">
+      <nav class="sidebar-nav">
+        <div class="sidebar-title">Contents</div>
+        <ul class="sidebar-links">
+          <li><a href="#overview" class="active">Ticket Overview</a></li>
+          <li><a href="#lifecycle">Ticket Lifecycle</a></li>
+          <li><a href="#resolution">Resolution Process</a></li>
+          <li><a href="#escalation">Escalation Rules</a></li>
+          <li><a href="#priorities">Priority Management</a></li>
+          <li><a href="#collaboration">Collaboration</a></li>
+          <li><a href="#closure">Ticket Closure</a></li>
+          <li><a href="#best-practices">Best Practices</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="proj-content">
+
+      <!-- Overview Section -->
+      <section class="proj-section" id="overview">
+
+        <h2 class="section-title">Ticket Resolution Overview</h2>
+
+        <p class="section-intro">
+          Effective ticket resolution is the core of any successful helpdesk operation. This guide covers the complete workflow from ticket intake through closure, including escalation procedures, priority management, and best practices for maintaining high customer satisfaction.
+        </p>
+
+        <div class="content-block">
+          <h4>What is a Ticket Lifecycle?</h4>
+          <p>
+            A ticket lifecycle in osTicket represents the complete journey of a support request from the moment it's created until it's fully resolved and closed. Each stage of this lifecycle involves specific actions, assignments, and status updates that ensure the issue is handled efficiently and transparently.
+          </p>
+          <p>
+            Understanding and properly managing this lifecycle is critical for:
+          </p>
+          <ul class="checklist">
+            <li><strong>Meeting SLA commitments:</strong> Ensuring response and resolution times are met</li>
+            <li><strong>Maintaining transparency:</strong> Keeping customers informed of progress</li>
+            <li><strong>Quality assurance:</strong> Ensuring consistent, professional service</li>
+            <li><strong>Workload distribution:</strong> Routing tickets to the right team members</li>
+            <li><strong>Knowledge management:</strong> Documenting solutions for future reference</li>
+          </ul>
+        </div>
+
+        <div class="callout info">
+          <strong>Key Principle:</strong> Every ticket should have a clear path from creation to resolution, with no ambiguity about who owns it, what the status is, or when it will be addressed.
+        </div>
+
+      </section>
+
+      <!-- Ticket Lifecycle Section -->
+      <section class="proj-section" id="lifecycle">
+
+        <h2 class="section-title">Ticket Lifecycle States</h2>
+
+        <p class="section-intro">
+          osTicket uses a standard ticket status workflow that guides tickets through their complete lifecycle. Understanding each state is essential for proper workflow management.
+        </p>
+
+        <div class="content-block">
+          <h4>Core Ticket Statuses</h4>
+
+          <div class="process-step">
+            <div class="process-number">1</div>
+            <div class="process-content">
+              <h5><span class="status-badge status-open">Open</span> New Ticket Created</h5>
+              <p>
+                A ticket enters the system when a customer submits a request via email, the web portal, or an API call. The ticket is automatically assigned a unique ID and placed in the default department queue. Initial acknowledgment is sent to the customer.
+              </p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-number">2</div>
+            <div class="process-content">
+              <h5><span class="status-badge status-pending">Pending</span> Assigned & In Progress</h5>
+              <p>
+                An agent accepts the ticket and begins investigation. The ticket is marked as "Pending" to indicate it's actively being worked on. The agent communicates with the customer about findings, next steps, or required information.
+              </p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-number">3</div>
+            <div class="process-content">
+              <h5><span class="status-badge status-escalated">Escalated</span> Requires Higher Level</h5>
+              <p>
+                If the agent cannot resolve the issue, it's escalated to a manager or higher-tier support team. This status indicates the ticket needs specialized expertise or authorization. The original agent remains informed of progress.
+              </p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-number">4</div>
+            <div class="process-content">
+              <h5><span class="status-badge status-resolved">Resolved</span> Solution Provided</h5>
+              <p>
+                The agent provides a solution or resolution. The ticket is marked as "Resolved" and the customer is notified. The ticket remains open for a brief period to allow the customer to confirm the solution works before final closure.
+              </p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-number">5</div>
+            <div class="process-content">
+              <h5><span class="status-badge status-closed">Closed</span> Ticket Complete</h5>
+              <p>
+                After customer confirmation (or after a timeout period), the ticket is closed. A closure summary may be recorded. The ticket is moved to archive and used for reporting, metrics, and knowledge base updates.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-block">
+          <h4>Additional Status States</h4>
+
+          <table class="config-table">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Meaning</th>
+                <th>Typical Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>On Hold</strong></td>
+                <td>Waiting for customer response or external resource</td>
+                <td>Agent waits for customer reply; auto-reopens after timeout</td>
+              </tr>
+              <tr>
+                <td><strong>In Review</strong></td>
+                <td>Solution provided but under QA verification</td>
+                <td>Manager reviews resolution quality before closure</td>
+              </tr>
+              <tr>
+                <td><strong>Reopened</strong></td>
+                <td>Previously closed ticket requires more work</td>
+                <td>Customer confirms issue persists; reassign to agent</td>
+              </tr>
+              <tr>
+                <td><strong>Duplicate</strong></td>
+                <td>Duplicate of another existing ticket</td>
+                <td>Link to original ticket; close and merge</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+
+      <!-- Resolution Process Section -->
+      <section class="proj-section" id="resolution">
+
+        <h2 class="section-title">Ticket Resolution Process</h2>
+
+        <p class="section-intro">
+          A systematic approach to resolving tickets ensures consistency, quality, and customer satisfaction. Here's the step-by-step process for handling and resolving support tickets.
+        </p>
+
+        <div class="content-block">
+          <h4>Step 1: Receive & Acknowledge</h4>
+
+          <ul class="checklist">
+            <li><strong>Auto-acknowledgment:</strong> osTicket automatically sends an acknowledgment email with ticket number</li>
+            <li><strong>Initial triage:</strong> Ticket is routed to appropriate department based on category</li>
+            <li><strong>Priority assignment:</strong> System assigns priority based on configured rules</li>
+            <li><strong>SLA activation:</strong> Response and resolution timers begin based on priority</li>
+          </ul>
+
+          <div class="callout info">
+            <strong>Best Practice:</strong> Configure auto-responses that include the ticket number, estimated response time, and how to track the ticket online.
+          </div>
+        </div>
+
+        <div class="content-block">
+          <h4>Step 2: Assign & Investigate</h4>
+
+          <ul class="checklist">
+            <li><strong>Agent assignment:</strong> Manually assign to specific agent or use automatic routing rules</li>
+            <li><strong>Initial response:</strong> Agent provides first response within SLA response time</li>
+            <li><strong>Information gathering:</strong> Collect additional details from customer if needed</li>
+            <li><strong>Problem diagnosis:</strong> Analyze symptoms and identify root cause</li>
+            <li><strong>Knowledge base check:</strong> Review existing solutions for similar issues</li>
+          </ul>
+
+          <div class="callout warning">
+            <strong>Important:</strong> Always acknowledge customer communication within the response SLA, even if you don't have a complete solution yet. Update them on your progress.
+          </div>
+        </div>
+
+        <div class="content-block">
+          <h4>Step 3: Develop Solution</h4>
+
+          <ul class="checklist">
+            <li><strong>Research options:</strong> Consult documentation, KB articles, and team expertise</li>
+            <li><strong>Test solutions:</strong> When possible, test in a non-production environment first</li>
+            <li><strong>Collaborate:</strong> Involve other team members if specialist knowledge is required</li>
+            <li><strong>Document steps:</strong> Keep detailed notes for future reference and knowledge base</li>
+          </ul>
+        </div>
+
+        <div class="content-block">
+          <h4>Step 4: Implement & Communicate</h4>
+
+          <ul class="checklist">
+            <li><strong>Clear instructions:</strong> Provide step-by-step resolution in customer's language</li>
+            <li><strong>Screenshot/videos:</strong> Include visual guides when helpful</li>
+            <li><strong>Verify understanding:</strong> Ask customer to confirm they understand the steps</li>
+            <li><strong>Support follow-up:</strong> Offer additional help if first attempt fails</li>
+            <li><strong>Set expectations:</strong> Explain any wait times or external dependencies</li>
+          </ul>
+        </div>
+
+        <div class="content-block">
+          <h4>Step 5: Verify Resolution</h4>
+
+          <ul class="checklist">
+            <li><strong>Confirmation request:</strong> Ask customer to confirm the issue is resolved</li>
+            <li><strong>Follow-up testing:</strong> Have customer test the solution thoroughly</li>
+            <li><strong>Address remaining issues:</strong> If partial resolution, update ticket status accordingly</li>
+            <li><strong>Prevention tips:</strong> Suggest preventive measures to avoid recurrence</li>
+          </ul>
+        </div>
+
+        <div class="content-block">
+          <h4>Step 6: Document & Close</h4>
+
+          <ul class="checklist">
+            <li><strong>Resolution summary:</strong> Write clear, concise summary of issue and solution</li>
+            <li><strong>KB article:</strong> Create or update knowledge base article if appropriate</li>
+            <li><strong>Internal notes:</strong> Document any workarounds or special circumstances</li>
+            <li><strong>Mark resolved:</strong> Update ticket status to "Resolved"</li>
+            <li><strong>Allow re-open window:</strong> Keep ticket open briefly in case customer has follow-ups</li>
+            <li><strong>Final closure:</strong> Auto-close after customer confirmation or timeout</li>
+          </ul>
+        </div>
+
+      </section>
+
+      <!-- Escalation Section -->
+      <section class="proj-section" id="escalation">
+
+        <h2 class="section-title">Escalation Management</h2>
+
+        <p class="section-intro">
+          Escalation is the process of moving a ticket to a higher level of support when an agent cannot resolve it. Proper escalation ensures complex issues receive appropriate expertise while maintaining transparency.
+        </p>
+
+        <div class="content-block">
+          <h4>When to Escalate</h4>
+
+          <p>Escalate a ticket when:</p>
+
+          <ul class="checklist">
+            <li><strong>Technical expertise required:</strong> Issue requires specialized knowledge you don't have</li>
+            <li><strong>Manager authorization needed:</strong> Resolution requires administrative approval</li>
+            <li><strong>SLA at risk:</strong> Current approach won't meet resolution deadline</li>
+            <li><strong>Customer satisfaction issue:</strong> Customer is frustrated and needs management attention</li>
+            <li><strong>Business impact:</strong> Issue affects multiple users or critical operations</li>
+            <li><strong>External vendor involvement:</strong> Issue requires vendor support (hardware, software, ISP)</li>
+            <li><strong>Policy exception:</strong> Resolution requires exception to standard policy</li>
+            <li><strong>Legal/compliance concern:</strong> Issue has legal or security implications</li>
+          </ul>
+
+          <div class="callout warning">
+            <strong>Avoid Over-Escalation:</strong> Only escalate when truly necessary. Over-escalation creates bottlenecks and reduces efficiency. Try to resolve at the lowest competent level.
+          </div>
+        </div>
+
+        <div class="content-block">
+          <h4>Escalation Types</h4>
+
+          <div class="comparison-grid">
+            <div class="comparison-card">
+              <h5>Department Escalation</h5>
+              <p>Move ticket to different department with relevant expertise</p>
+              <ul>
+                <li>Example: Hardware → Network Team</li>
+                <li>Example: Email → Database Admin</li>
+              </ul>
+            </div>
+
+            <div class="comparison-card">
+              <h5>Priority Escalation</h5>
+              <p>Increase ticket priority to meet urgent SLA</p>
+              <ul>
+                <li>Low → High</li>
+                <li>High → Urgent</li>
+              </ul>
+            </div>
+
+            <div class="comparison-card">
+              <h5>Level Escalation</h5>
+              <p>Move from junior to senior support staff</p>
+              <ul>
+                <li>Tier 1 → Tier 2</li>
+                <li>Tier 2 → Tier 3</li>
+              </ul>
+            </div>
+
+            <div class="comparison-card">
+              <h5>Management Escalation</h5>
+              <p>Escalate to manager for decision or authority</p>
+              <ul>
+                <li>Policy exception</li>
+                <li>Customer satisfaction</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-block">
+          <h4>How to Properly Escalate a Ticket</h4>
+
+          <div class="process-step">
+            <div class="process-number">1</div>
+            <div class="process-content">
+              <h5>Document Your Efforts</h5>
+              <p>Record all troubleshooting steps taken, solutions attempted, and findings. This context is invaluable for the escalated team.</p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-number">2</div>
+            <div class="process-content">
+              <h5>Change Ticket Status</h5>
+              <p>Mark ticket as "Escalated" in osTicket. Set the appropriate priority level based on urgency and impact.</p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-number">3</div>
+            <div class="process-content">
+              <h5>Add Clear Internal Notes</h5>
+              <p>Write detailed internal notes explaining why escalation is necessary, what was tried, and what specific expertise is needed. Include any relevant error messages or logs.</p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-number">4</div>
+            <div class="process-content">
+              <h5>Reassign to Appropriate Owner</h5>
+              <p>If escalating to a team, assign to team lead or manager. If escalating to another department, assign to that department's queue.</p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-number">5</div>
+            <div class="process-content">
+              <h5>Communicate with Customer</h5>
+              <p>Notify customer that their ticket is being escalated to specialists who can better address their issue. Set expectations for next steps and timeline.</p>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="process-number">6</div>
+            <div class="process-content">
+              <h5>Stay Informed</h5>
+              <p>Monitor the escalated ticket. Once resolved, update ticket notes and mark as resolved in the original department records.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <strong>Pro Tip:</strong> Create escalation workflows in osTicket using rules and automation. Set up automatic escalation if a ticket isn't addressed within X hours, or if the customer priority flag is high.
+        </div>
+
+      </section>
+
+      <!-- Priority Management Section -->
+      <section class="proj-section" id="priorities">
+
+        <h2 class="section-title">Priority & SLA Management</h2>
+
+        <p class="section-intro">
+          Priority levels determine how urgently a ticket should be addressed. Combined with SLAs, they ensure critical issues are resolved faster and less urgent items don't waste resources.
+        </p>
+
+        <div class="content-block">
+          <h4>Standard Priority Levels</h4>
+
+          <table class="config-table">
+            <thead>
+              <tr>
+                <th>Priority</th>
+                <th>Response Time</th>
+                <th>Resolution Time</th>
+                <th>When to Use</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Critical/Emergency</strong></td>
+                <td>15 minutes</td>
+                <td>2 hours</td>
+                <td>System outage, data loss, security breach, all users affected</td>
+              </tr>
+              <tr>
+                <td><strong>High/Urgent</strong></td>
+                <td>1 hour</td>
+                <td>4 hours</td>
+                <td>Major functionality broken, significant impact, multiple users</td>
+              </tr>
+              <tr>
+                <td><strong>Medium/Normal</strong></td>
+                <td>4 hours</td>
+                <td>24 hours</td>
+                <td>Non-critical issues, partial functionality, single user</td>
+              </tr>
+              <tr>
+                <td><strong>Low</strong></td>
+                <td>24 hours</td>
+                <td>72 hours</td>
+                <td>Enhancement requests, minor issues, no business impact</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="callout warning">
+            <strong>Priority Inflation:</strong> Resist the temptation to mark everything as "High" or "Critical." Honest priority assessment ensures critical issues get proper attention.
+          </div>
+        </div>
+
+        <div class="content-block">
+          <h4>Impact vs. Urgency Matrix</h4>
+
+          <p>Use this matrix to assign priority more systematically:</p>
+
+          <table class="config-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Low Impact</th>
+                <th>Medium Impact</th>
+                <th>High Impact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Low Urgency</strong></td>
+                <td>Low Priority</td>
+                <td>Low Priority</td>
+                <td>Medium Priority</td>
+              </tr>
+              <tr>
+                <td><strong>Medium Urgency</strong></td>
+                <td>Low Priority</td>
+                <td>Medium Priority</td>
+                <td>High Priority</td>
+              </tr>
+              <tr>
+                <td><strong>High Urgency</strong></td>
+                <td>Medium Priority</td>
+                <td>High Priority</td>
+                <td>Critical Priority</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="content-block">
+          <h4>SLA-Based Response & Resolution</h4>
+
+          <p>
+            Service Level Agreements (SLAs) define the maximum time allowed to respond to and resolve tickets at each priority level. osTicket tracks SLA compliance automatically.
+          </p>
+
+          <ul class="checklist">
+            <li><strong>Response SLA:</strong> First agent response must occur within this time</li>
+            <li><strong>Resolution SLA:</strong> Ticket must be resolved (not just responded to) within this time</li>
+            <li><strong>Grace period:</strong> Some systems allow brief overages before SLA violation is marked</li>
+            <li><strong>Pause on hold:</strong> SLA time may pause while waiting for customer response</li>
+            <li><strong>Alert thresholds:</strong> Get notified before SLA expiration (e.g., 30 min warning)</li>
+          </ul>
+
+          <div class="callout info">
+            <strong>SLA Best Practice:</strong> Review and adjust SLA times quarterly. Times that are too aggressive cause team burnout; times that are too lenient reduce urgency and customer satisfaction.
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Collaboration Section -->
+      <section class="proj-section" id="collaboration">
+
+        <h2 class="section-title">Team Collaboration & Handoff</h2>
+
+        <p class="section-intro">
+          Effective ticket resolution often requires collaboration between team members. osTicket provides several tools for agents to work together seamlessly while maintaining clear ownership of each ticket.
+        </p>
+
+        <div class="content-block">
+          <h4>Collaboration Tools in osTicket</h4>
+
+          <div class="comparison-grid">
+            <div class="comparison-card">
+              <h5>Internal Notes</h5>
+              <p>Private comments visible only to staff, not customers. Perfect for sharing diagnostic information, troubleshooting steps, and handoff details.</p>
+            </div>
+
+            <div class="comparison-card">
+              <h5>Ticket Comments</h5>
+              <p>Public replies sent to the customer. Include solutions, progress updates, and requests for information with professional formatting.</p>
+            </div>
+
+            <div class="comparison-card">
+              <h5>Ticket Threads</h5>
+              <p>Complete conversation history between agent and customer. Provides context for all communications and decisions made.</p>
+            </div>
+
+            <div class="comparison-card">
+              <h5>Ticket Assignment</h5>
+              <p>Reassign tickets between agents with internal notes explaining the handoff. Clear ownership prevents duplicate work and gaps.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-block">
+          <h4>Best Practices for Handoff</h4>
+
+          <ul class="checklist">
+            <li><strong>Clear ownership:</strong> Only one agent should be primary owner. Others provide input via internal notes.</li>
+            <li><strong>Comprehensive notes:</strong> When reassigning, include all relevant context so the next agent isn't starting from scratch.</li>
+            <li><strong>Explicit next steps:</strong> Clearly state what the next agent should do, what to look for, and what to avoid.</li>
+            <li><strong>Resource pointers:</strong> Link to relevant documentation, KB articles, tools, or contact information needed.</li>
+            <li><strong>Avoid blame:</strong> Focus on moving the ticket forward, not critiquing previous work.</li>
+            <li><strong>Notify stakeholders:</strong> Inform customer (and management if needed) of any reassignment with explanation.</li>
+          </ul>
+        </div>
+
+        <div class="callout info">
+          <strong>Quality Handoff Template:</strong>
+          <p style="margin-top: 0.8rem; color: var(--text-muted); font-size: 0.9rem;">
+            "Ticket #12345 being reassigned to [Agent Name]. <strong>Summary:</strong> [2-3 sentence overview]. <strong>What's been done:</strong> [Steps taken, solutions tried]. <strong>Next steps:</strong> [Specific actions needed]. <strong>Important notes:</strong> [Anything the next agent should know]."
+          </p>
+        </div>
+
+      </section>
+
+      <!-- Closure Section -->
+      <section class="proj-section" id="closure">
+
+        <h2 class="section-title">Ticket Closure & Documentation</h2>
+
+        <p class="section-intro">
+          Proper ticket closure ensures clear documentation, prevents reopening issues, and creates valuable knowledge resources for future support interactions.
+        </p>
+
+        <div class="content-block">
+          <h4>Closure Checklist</h4>
+
+          <ul class="checklist">
+            <li><strong>Verify resolution:</strong> Confirm customer has verified the solution works</li>
+            <li><strong>Complete documentation:</strong> Ensure internal notes fully document what was done</li>
+            <li><strong>Attach resources:</strong> Link to relevant KB articles, change tickets, or external references</li>
+            <li><strong>Create KB article:</strong> For common issues, add to knowledge base for self-service</li>
+            <li><strong>Update categorization:</strong> Ensure ticket category, subcategory, and tags are accurate</li>
+            <li><strong>Add resolution summary:</strong> Write clear, professional summary of issue and solution</li>
+            <li><strong>Set closure notes:</strong> Add any special circumstances, workarounds, or follow-ups needed</li>
+            <li><strong>Mark resolved:</strong> Change status to "Resolved" before final closure</li>
+          </ul>
+        </div>
+
+        <div class="content-block">
+          <h4>Writing an Effective Resolution Summary</h4>
+
+          <p>A good resolution summary includes:</p>
+
+          <ul class="checklist">
+            <li><strong>Problem statement:</strong> Clear description of what the customer reported</li>
+            <li><strong>Root cause:</strong> What actually caused the issue (if determined)</li>
+            <li><strong>Solution applied:</strong> Specific steps or actions taken to resolve</li>
+            <li><strong>Verification:</strong> How we confirmed the issue was resolved</li>
+            <li><strong>Prevention:</strong> Steps to prevent recurrence (if applicable)</li>
+          </ul>
+
+          <p style="margin-top: 1.5rem; padding: 1rem; background: var(--off-white); border-radius: 6px; border-left: 3px solid var(--green);">
+            <strong>Example:</strong> "Customer reported unable to reset password. Root cause: AD password policy not syncing with helpdesk system. Solution: Manually reset password in AD, verified user could log in. To prevent: Enable automatic AD sync via scheduled task. Knowledge Base article updated for self-service reset."
+          </p>
+        </div>
+
+        <div class="content-block">
+          <h4>Creating Knowledge Base Articles</h4>
+
+          <p>
+            When closing tickets, look for opportunities to create or update knowledge base articles. This allows customers to self-serve in the future and reduces ticket volume.
+          </p>
+
+          <ul class="checklist">
+            <li><strong>Common issues:</strong> If you've seen this issue 3+ times, it's KB-worthy</li>
+            <li><strong>Clear instructions:</strong> Write step-by-step in user-friendly language with screenshots</li>
+            <li><strong>Troubleshooting section:</strong> Include common variations and what to do if steps don't work</li>
+            <li><strong>Link in closure:</strong> Reference the KB article in ticket resolution summary</li>
+            <li><strong>Publish promptly:</strong> Make articles visible to customers immediately after ticket closure</li>
+          </ul>
+        </div>
+
+        <div class="content-block">
+          <h4>Post-Closure Follow-up</h4>
+
+          <ul class="checklist">
+            <li><strong>Customer satisfaction survey:</strong> Send automated survey asking for feedback on resolution quality</li>
+            <li><strong>Follow-up check:</strong> For complex issues, contact customer 1-2 weeks later to ensure lasting resolution</li>
+            <li><strong>Document improvements:</strong> Note any systemic issues that need process improvement</li>
+            <li><strong>Team debrief:</strong> For escalated issues, discuss what we learned with the team</li>
+          </ul>
+        </div>
+
+      </section>
+
+      <!-- Best Practices Section -->
+      <section class="proj-section" id="best-practices">
+
+        <h2 class="section-title">Best Practices for Ticket Resolution</h2>
+
+        <p class="section-intro">
+          These proven practices help ensure consistent, high-quality ticket resolution that maximizes customer satisfaction and team efficiency.
+        </p>
+
+        <div class="content-block">
+          <h4>Communication Best Practices</h4>
+
+          <ul class="checklist">
+            <li><strong>Respond promptly:</strong> Even if you don't have a solution, acknowledge within SLA response time</li>
+            <li><strong>Keep language simple:</strong> Avoid technical jargon; explain in customer's terms</li>
+            <li><strong>Be empathetic:</strong> Acknowledge frustration; show you understand their issue</li>
+            <li><strong>Provide context:</strong> Explain what you're doing and why, so customer understands the process</li>
+            <li><strong>Set expectations:</strong> If resolution will take time, explain timeline and next steps</li>
+            <li><strong>Proofread:</strong> Professional, error-free communication builds confidence</li>
+            <li><strong>Use customer's name:</strong> Personalization makes interactions feel more genuine</li>
+          </ul>
+        </div>
+
+        <div class="content-block">
+          <h4>Efficiency Best Practices</h4>
+
+          <ul class="checklist">
+            <li><strong>Use canned responses:</strong> For common issues, use templates to save time without sacrificing quality</li>
+            <li><strong>Batch similar issues:</strong> Group similar tickets together to identify patterns</li>
+            <li><strong>Leverage automation:</strong> Auto-escalate, auto-assign, and auto-close where appropriate</li>
+            <li><strong>Search before investigating:</strong> Check KB and closed tickets for similar issues before starting fresh</li>
+            <li><strong>Ask better questions:</strong> Well-framed questions get better information and reduce back-and-forth</li>
+            <li><strong>Consolidate communications:</strong> Use internal notes to collaborate; minimize customer back-and-forth</li>
+          </ul>
+        </div>
+
+        <div class="content-block">
+          <h4>Quality Best Practices</h4>
+
+          <ul class="checklist">
+            <li><strong>First-contact resolution:</strong> Aim to resolve issues on first contact rather than requiring follow-ups</li>
+            <li><strong>Root cause analysis:</strong> Don't just fix symptoms; understand and address the underlying cause</li>
+            <li><strong>Peer review:</strong> Have senior agents review complex ticket resolutions for quality</li>
+            <li><strong>Monitor trends:</strong> Track common issues and address root causes systematically</li>
+            <li><strong>Customer satisfaction:</strong> Track CSAT scores and continuously improve based on feedback</li>
+            <li><strong>Continuous learning:</strong> Share knowledge, update training, and learn from difficult tickets</li>
+          </ul>
+        </div>
+
+        <div class="callout info">
+          <strong>Key Metric to Track:</strong> First Contact Resolution (FCR) Rate
+          <p style="margin-top: 0.8rem; color: var(--text-muted); font-size: 0.9rem;">
+            Percentage of tickets resolved without requiring customer follow-up. Target: 80%+. Higher FCR reduces overall ticket volume, improves CSAT, and reduces costs.
+          </p>
+        </div>
+
+      </section>
+
+      <!-- Final CTA -->
+      <div class="content-block">
+        <h4>Summary</h4>
+        <p>
+          Effective ticket resolution requires clear processes, proper escalation, good communication, and continuous improvement. By following these guidelines and best practices, you'll create a support experience that resolves issues quickly, satisfies customers, and builds team confidence.
+        </p>
+        <p>
+          Remember: Every ticket is an opportunity to not only solve a customer's problem but also gather insights that improve your systems, processes, and knowledge base.
+        </p>
+
+        <div style="margin-top: 2rem; text-align: center;">
+          <a href="osticket-configuration.html" class="next-btn">
+            ← Back to Configuration
+          </a>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer style="position:relative;overflow:hidden">
+    <svg class="ft-botanical" viewBox="0 0 220 90" fill="none">
+      <path d="M220 90 Q170 60 185 30 Q195 10 160 0" stroke="#4ade80" stroke-width="1.5" fill="none" />
+      <path d="M185 30 Q215 20 220 5 Q198 22 185 30Z" fill="#22c55e" />
+      <path d="M185 30 Q200 50 215 48 Q198 42 185 30Z" fill="#10b981" opacity="0.7" />
+      <circle cx="185" cy="30" r="3" fill="#4ade80" opacity="0.5" />
+    </svg>
+    <p><strong>Gideon Enejo</strong> · IT Support Specialist · <a href="mailto:support@example.com">support@example.com</a></p>
+    <p style="margin-top:0.5rem">© 2026 · Built with HTML & CSS</p>
+  </footer>
+
+  <script>
+    // Sidebar navigation
+    document.querySelectorAll('.sidebar-links a').forEach(link => {
+      link.addEventListener('click', function (e) {
+        document.querySelectorAll('.sidebar-links a').forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Highlight active section on scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          document.querySelectorAll('.sidebar-links a').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + id) link.classList.add('active');
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.proj-section').forEach(section => observer.observe(section));
+  </script>
+</body>
+
+</html>
