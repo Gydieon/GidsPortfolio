@@ -9,6 +9,109 @@
   <link rel="stylesheet" href="botantech.css" />
 
   <style>
+    /* ===============================
+   GLOBAL RESPONSIVE SYSTEM
+================================ */
+
+    /* Large screens (Desktops) */
+    @media (min-width: 1200px) {
+      .hero {
+        padding: 6rem 8%;
+      }
+    }
+
+    /* Medium screens (Tablets) */
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+      }
+
+      .hero-desc {
+        margin: 0 auto 2rem;
+      }
+
+      .hero-ctas {
+        justify-content: center;
+      }
+
+      .hero-right {
+        display: flex;
+      }
+    }
+
+    /* Small screens (Phones) */
+    @media (max-width: 768px) {
+
+      /* NAV */
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .nav-links li a {
+        font-size: 0.85rem;
+      }
+
+      /* HERO */
+      .hero {
+        padding: 2.5rem 5%;
+      }
+
+      .hero h2 {
+        font-size: 1.6rem;
+      }
+
+      .hero-desc {
+        font-size: 0.95rem;
+      }
+
+      .hero-right {
+        display: none;
+        /* cleaner mobile UI */
+      }
+
+      /* QUICK NAV */
+      .quick-nav {
+        padding: 2rem 5%;
+      }
+
+      .quick-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Extra small devices */
+    @media (max-width: 480px) {
+
+      .hero h2 {
+        font-size: 1.4rem;
+      }
+
+      .hero-desc {
+        font-size: 0.9rem;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .quick-card {
+        padding: 1.2rem;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     nav {
       position: sticky;
       top: 0;

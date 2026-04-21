@@ -8,10 +8,107 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="botantech.css" />
   <style>
-    .youtube-wrapper {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
+    /* ===============================
+   GLOBAL RESPONSIVE SYSTEM
+================================ */
+
+    /* Large screens (Desktops) */
+    @media (min-width: 1200px) {
+      .hero {
+        padding: 6rem 8%;
+      }
+    }
+
+    /* Medium screens (Tablets) */
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+      }
+
+      .hero-desc {
+        margin: 0 auto 2rem;
+      }
+
+      .hero-ctas {
+        justify-content: center;
+      }
+
+      .hero-right {
+        display: flex;
+      }
+    }
+
+    /* Small screens (Phones) */
+    @media (max-width: 768px) {
+
+      /* NAV */
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .nav-links li a {
+        font-size: 0.85rem;
+      }
+
+      /* HERO */
+      .hero {
+        padding: 2.5rem 5%;
+      }
+
+      .hero h2 {
+        font-size: 1.6rem;
+      }
+
+      .hero-desc {
+        font-size: 0.95rem;
+      }
+
+      .hero-right {
+        display: none;
+        /* cleaner mobile UI */
+      }
+
+      /* QUICK NAV */
+      .quick-nav {
+        padding: 2rem 5%;
+      }
+
+      .quick-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Extra small devices */
+    @media (max-width: 480px) {
+
+      .hero h2 {
+        font-size: 1.4rem;
+      }
+
+      .hero-desc {
+        font-size: 0.9rem;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .quick-card {
+        padding: 1.2rem;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     .youtube-wrapper {
@@ -26,7 +123,6 @@
       gap: 8px;
       padding: 12px 18px;
       background: #006b2d;
-      /* darker green */
       color: white;
       text-decoration: none;
       border-radius: 6px;
@@ -36,7 +132,6 @@
 
     .youtube-btn:hover {
       background: #005424;
-      /* even darker on hover */
     }
 
     .youtube-icon {
@@ -47,11 +142,8 @@
       position: sticky;
       top: 0;
       z-index: 999;
-      /* ensures it stays above other content */
       background: var(--white);
-      /* keeps background consistent when scrolling */
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-
     }
 
     .video-link {
@@ -92,7 +184,6 @@
       transform: translate(-50%, -50%) scale(1.1);
     }
 
-    /* optional subtle shadow */
     /* ── BREADCRUMB ── */
     .breadcrumb {
       display: flex;
@@ -275,8 +366,8 @@
       background: var(--white);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 2rem;
-      margin: 2rem 0;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
     }
 
     .screenshot-section h4 {
@@ -297,6 +388,26 @@
       height: 14px;
       background: var(--green-accent);
       border-radius: 2px;
+    }
+
+    .screenshot-section h5 {
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 1rem 0 0.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .screenshot-section h5::before {
+      content: '';
+      display: inline-block;
+      width: 2px;
+      height: 12px;
+      background: var(--green-accent);
+      border-radius: 1px;
     }
 
     .screenshot-placeholder-large {
@@ -345,7 +456,6 @@
       max-width: 1100px;
       margin: 0 auto;
       padding: 2.5rem 5%;
-      /* reduced from 4rem */
     }
 
     .video-hero-title {
@@ -364,12 +474,10 @@
       max-width: 600px;
     }
 
-    /* 🔥 MAIN FIX: control overall size */
+    /* MAIN FIX: control overall size */
     .video-container-wrapper {
       max-width: 600px;
-      /* ⬅️ THIS reduces width */
       margin: 0 auto;
-      /* center it */
       background: #0a0f0d;
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -385,7 +493,6 @@
       justify-content: center;
       gap: 1rem;
       aspect-ratio: 16/9;
-      /* keep video ratio */
       background: linear-gradient(135deg, #0a1a0f 0%, #0f2e1c 100%);
       position: relative;
       overflow: hidden;
@@ -401,7 +508,6 @@
 
     .play-icon-hero {
       width: 60px;
-      /* reduced from 80px */
       height: 60px;
       filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
       transition: transform 0.3s;
@@ -475,7 +581,7 @@
       font-family: var(--serif);
       font-size: 1.8rem;
       color: var(--text);
-      margin-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
       line-height: 1.2;
     }
 
@@ -525,7 +631,7 @@
       margin: 0;
     }
 
-    /* ── CONTENT BLOCK ── */
+    /* ── CONTENT BLOCK ── PERFECT & CONSISTENT */
     .content-block {
       background: var(--white);
       border: 1px solid var(--border);
@@ -534,12 +640,28 @@
       margin-bottom: 2rem;
     }
 
+    .content-block h2 {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      color: var(--text);
+      margin: 0 0 1.5rem 0;
+      line-height: 1.2;
+    }
+
+    .content-block h3 {
+      font-family: var(--sans);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 1.5rem 0 1rem 0;
+    }
+
     .content-block h4 {
       font-family: var(--sans);
       font-size: 0.95rem;
       font-weight: 600;
       color: var(--text);
-      margin: 0 0 1rem 0;
+      margin: 1.5rem 0 1rem 0;
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -554,14 +676,35 @@
       border-radius: 2px;
     }
 
+    .content-block h5 {
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 1rem 0 0.8rem 0;
+    }
+
     .content-block p {
-      margin: 0 0 0.8rem 0;
+      margin: 0 0 1rem 0;
       font-size: 0.9rem;
       line-height: 1.7;
+      color: var(--text-muted);
     }
 
     .content-block p:last-child {
       margin-bottom: 0;
+    }
+
+    .content-block ul,
+    .content-block ol {
+      margin: 1rem 0 1rem 0;
+    }
+
+    .content-block li {
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text-muted);
     }
 
     /* ── TABLE STYLE ── */
@@ -579,16 +722,23 @@
       text-align: left;
       font-weight: 600;
       color: var(--text);
+      font-size: 0.85rem;
     }
 
     .config-table td {
       border: 1px solid var(--border);
       padding: 0.8rem;
       color: var(--text-muted);
+      font-size: 0.85rem;
     }
 
     .config-table tr:nth-child(even) {
       background: var(--off-white);
+    }
+
+    .config-table strong {
+      color: var(--text);
+      font-weight: 600;
     }
 
     /* ── SCREENSHOT GALLERY ── */
@@ -654,6 +804,7 @@
       font-size: 0.9rem;
       color: var(--green);
       margin-bottom: 0.5rem;
+      font-weight: 600;
     }
 
     .callout.warning strong {
@@ -668,20 +819,23 @@
       margin: 0;
       font-size: 0.9rem;
       line-height: 1.6;
+      color: var(--text-muted);
     }
 
     /* ── CHECKLIST ── */
     .checklist {
       list-style: none;
       margin: 1.5rem 0;
+      padding: 0;
     }
 
     .checklist li {
       padding: 0.6rem 0 0.6rem 2rem;
       position: relative;
       font-size: 0.9rem;
-      color: var(--text);
+      color: var(--text-muted);
       line-height: 1.6;
+      margin-bottom: 0.5rem;
     }
 
     .checklist li::before {
@@ -703,6 +857,7 @@
       border-radius: 8px;
       display: inline-block;
       transition: all 0.3s ease;
+      margin-top: 1.5rem;
     }
 
     .next-btn:hover {
@@ -739,6 +894,10 @@
 
       .config-table {
         font-size: 0.75rem;
+      }
+
+      .screenshot-section {
+        padding: 1.2rem;
       }
     }
   </style>
@@ -848,8 +1007,7 @@
       </a>
     </div>
 
-    </div>
-    <!-- 🔥 Professional Callout -->
+    <!-- Professional Callout -->
     <div class="callout info">
       <strong>Note:</strong> The video provides a high-level walkthrough of the configuration process, while the
       documentation below outlines the exact setup steps, system configurations, and implementation details.
@@ -883,781 +1041,673 @@
 
       <!-- Admin Panel Overview -->
       <section class="proj-section" id="admin-panel">
-        <h2 class="section-title">Admin Panel Overview</h2>
-        <p class="section-intro">
-          Familiarize yourself with the osTicket admin interface. This is where all configuration and ticket management
-          happens.
-        </p>
+        <div class="content-block">
+          <h2>Admin Panel Overview</h2>
+          <p class="section-intro">
+            Familiarize yourself with the osTicket admin interface. This is where all configuration and ticket
+            management happens.
+          </p>
 
-        <div class="step-group">
-          <div class="step-header">
-            <div class="step-num">1</div>
-            <div class="step-header-text">
-              <h3>Navigate to Admin Dashboard</h3>
-              <p>Access and explore the main admin interface</p>
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">1</div>
+              <div class="step-header-text">
+                <h3>Navigate to Admin Dashboard</h3>
+                <p>Access and explore the main admin interface</p>
+              </div>
             </div>
-          </div>
 
-          <div class="content-block">
-            <h4>Admin Panel URL</h4>
-            <p>Access the admin panel at:</p>
-            <div
-              style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-family: monospace; margin: 1rem 0;">
-              http://localhost/osTicket/scp/login.php
+            <div class="content-block">
+              <h4>Admin Panel URL</h4>
+              <p>Access the admin panel at:</p>
+              <div
+                style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-family: monospace; margin: 1rem 0; font-size: 0.85rem;">
+                http://localhost/osTicket/scp/login.php
+              </div>
+              <p>Log in with the admin credentials you created during installation.</p>
             </div>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.8rem;">Log in with the admin
-              credentials you created during installation.</p>
-          </div>
 
-          <div class="content-block">
-            <h4>Main Menu Sections</h4>
-            <p>The admin panel is organized into core several main sections:</p>
-            <table class="config-table">
-              <thead>
-                <tr>
-                  <th>Section</th>
-                  <th>Purpose</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Dashboard</strong></td>
-                  <td>Provides a real-time overview of system activity including ticket statistics, agent performance,
-                    and system health indicators.</td>
-                </tr>
+            <div class="content-block">
+              <h4>Main Menu Sections</h4>
+              <p>The admin panel is organized into several main sections:</p>
+              <table class="config-table">
+                <thead>
+                  <tr>
+                    <th>Section</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Dashboard</strong></td>
+                    <td>Provides a real-time overview of system activity including ticket statistics, agent performance,
+                      and system health indicators.</td>
+                  </tr>
 
-                <tr>
-                  <td><strong>Settings</strong></td>
-                  <td>Configure global system preferences such as helpdesk settings, ticket options, authentication
-                    methods, and system-wide configurations.</td>
-                </tr>
+                  <tr>
+                    <td><strong>Settings</strong></td>
+                    <td>Configure global system preferences such as helpdesk settings, ticket options, authentication
+                      methods, and system-wide configurations.</td>
+                  </tr>
 
-                <tr>
-                  <td><strong>Manage</strong></td>
-                  <td>Manage helpdesk structure including departments, SLA plans, help topics, ticket filters, and
-                    workflows.</td>
-                </tr>
+                  <tr>
+                    <td><strong>Manage</strong></td>
+                    <td>Manage helpdesk structure including departments, SLA plans, help topics, ticket filters, and
+                      workflows.</td>
+                  </tr>
 
-                <tr>
-                  <td><strong>Emails</strong></td>
-                  <td>Configure email settings including email addresses, incoming/outgoing mail servers (IMAP/SMTP),
-                    and automated email fetching.</td>
-                </tr>
+                  <tr>
+                    <td><strong>Emails</strong></td>
+                    <td>Configure email settings including email addresses, incoming/outgoing mail servers (IMAP/SMTP),
+                      and automated email fetching.</td>
+                  </tr>
 
-                <tr>
-                  <td><strong>Agents</strong></td>
-                  <td>Manage staff accounts, assign roles and permissions, organize teams, and control access levels
-                    within the helpdesk.</td>
-                </tr>
+                  <tr>
+                    <td><strong>Agents</strong></td>
+                    <td>Manage staff accounts, assign roles and permissions, organize teams, and control access levels
+                      within the helpdesk.</td>
+                  </tr>
 
-                <tr>
-                  <td><strong>Dashboard (Agent Panel)</strong></td>
-                  <td>Agent-side interface used by support staff to view, respond to, assign, and manage support tickets
-                    efficiently.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                  <tr>
+                    <td><strong>Dashboard (Agent Panel)</strong></td>
+                    <td>Agent-side interface used by support staff to view, respond to, assign, and manage support
+                      tickets efficiently.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-          <div class="screenshot-section">
-            <h4>Screenshot: Admin Dashboard</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              Displays system logs and key osTicket information for monitoring platform activity.
-            </p>
+            <div class="screenshot-section">
+              <h4>Screenshot: Admin Dashboard</h4>
+              <p>Displays system logs and key osTicket information for monitoring platform activity.</p>
+              <img src="screenshots/Configuration1.png" alt="Admin Dashboard"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
 
-            <img src="screenshots/Configuration1.png" alt="Admin Dashboard"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-          </div>
-
-          <div class="screenshot-section">
-            <h4>Screenshot: Settings Navigation</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              Main configuration menu showing system settings and options.
-            </p>
-
-            <img src="screenshots/Configuration2.png" alt="Settings Menu"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            <div class="screenshot-section">
+              <h4>Screenshot: Settings Navigation</h4>
+              <p>Main configuration menu showing system settings and options.</p>
+              <img src="screenshots/Configuration2.png" alt="Settings Menu"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
           </div>
         </div>
       </section>
 
       <!-- Email Configuration -->
       <section class="proj-section" id="email-config">
-        <h2 class="section-title">Email Configuration</h2>
-        <p class="section-intro">
-          Set up email integration so osTicket can send and receive emails. This is critical for automated notifications
-          and customer communication.
-        </p>
+        <div class="content-block">
+          <h2>Email Configuration</h2>
+          <p class="section-intro">
+            Set up email integration so osTicket can send and receive emails. This is critical for automated
+            notifications and customer communication.
+          </p>
 
-        <div class="step-group">
-          <div class="step-header">
-            <div class="step-num">2</div>
-            <div class="step-header-text">
-              <h3>Configure Outgoing Email (SMTP)</h3>
-              <p>Set up email sending for notifications and responses</p>
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">2</div>
+              <div class="step-header-text">
+                <h3>Configure Outgoing Email (SMTP)</h3>
+                <p>Set up email sending for notifications and responses</p>
+              </div>
             </div>
-          </div>
 
-          <div class="content-block">
-            <h4>Access Email Settings</h4>
-            <p>Navigate to: <strong>Email → Email Addresses → Outgoing Email (SMTP)</strong></p>
-          </div>
-
-          <div class="content-block">
-            <h4>SMTP Configuration Example</h4>
-            <p>Fill in the following SMTP details. Example using Gmail:</p>
-            <table class="config-table">
-              <thead>
-                <tr>
-                  <th>Setting</th>
-                  <th>Value (Gmail Example)</th>
-                  <th>Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>SMTP Host</strong></td>
-                  <td>smtp.gmail.com</td>
-                  <td>Or your email provider's SMTP server</td>
-                </tr>
-                <tr>
-                  <td><strong>SMTP Port</strong></td>
-                  <td>587</td>
-                  <td>Use 465 for SSL, 587 for TLS</td>
-                </tr>
-                <tr>
-                  <td><strong>Authentication</strong></td>
-                  <td>osTicket.tutorials1@gmail.com & App Password</td>
-                  <td>Provide Authentication Details or select same as remote mailbox</td>
-                </tr>
-                <tr>
-                  <td><strong>From Address</strong></td>
-                  <td>osTicket.tutorials1@gmail.com</td>
-                  <td>Display email address for messages</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="callout warning">
-            <strong>Gmail Users:</strong> Standard Gmail passwords won't work with SMTP. Enable 2-factor authentication
-            in your Google Account, then generate an App Password from the Security settings. Use this App Password
-            instead of your regular password.
-          </div>
-
-        </div>
-
-        <div class="step-group">
-          <div class="step-header">
-            <div class="step-num">3</div>
-            <div class="step-header-text">
-              <h3>Configure Incoming Email (POP3/IMAP)</h3>
-              <p>Allow osTicket to fetch emails from a mailbox</p>
+            <div class="content-block">
+              <h4>Access Email Settings</h4>
+              <p>Navigate to: <strong>Email → Email Addresses → Outgoing Email (SMTP)</strong></p>
             </div>
+
+            <div class="content-block">
+              <h4>SMTP Configuration Example</h4>
+              <p>Fill in the following SMTP details. Example using Gmail:</p>
+              <table class="config-table">
+                <thead>
+                  <tr>
+                    <th>Setting</th>
+                    <th>Value (Gmail Example)</th>
+                    <th>Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>SMTP Host</strong></td>
+                    <td>smtp.gmail.com</td>
+                    <td>Or your email provider's SMTP server</td>
+                  </tr>
+                  <tr>
+                    <td><strong>SMTP Port</strong></td>
+                    <td>587</td>
+                    <td>Use 465 for SSL, 587 for TLS</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Authentication</strong></td>
+                    <td>osTicket.tutorials1@gmail.com & App Password</td>
+                    <td>Provide Authentication Details or select same as remote mailbox</td>
+                  </tr>
+                  <tr>
+                    <td><strong>From Address</strong></td>
+                    <td>osTicket.tutorials1@gmail.com</td>
+                    <td>Display email address for messages</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="callout warning">
+              <strong>Gmail Users:</strong> Standard Gmail passwords won't work with SMTP. Enable 2-factor
+              authentication in your Google Account, then generate an App Password from the Security settings. Use this
+              App Password instead of your regular password.
+            </div>
+
           </div>
 
-          <div class="content-block">
-            <h4>Access Incoming Email Settings</h4>
-            <p>Navigate to: <strong>Email → Email Addresses → Remote Mailbox</strong></p>
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">3</div>
+              <div class="step-header-text">
+                <h3>Configure Incoming Email (POP3/IMAP)</h3>
+                <p>Allow osTicket to fetch emails from a mailbox</p>
+              </div>
+            </div>
+
+            <div class="content-block">
+              <h4>Access Incoming Email Settings</h4>
+              <p>Navigate to: <strong>Email → Email Addresses → Remote Mailbox</strong></p>
+            </div>
+
+            <div class="content-block">
+              <h4>Email Account Configuration</h4>
+              <p>Configure the email account for incoming messages:</p>
+              <table class="config-table">
+                <thead>
+                  <tr>
+                    <th>Setting</th>
+                    <th>Example Value</th>
+                    <th>Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td><strong>Host</strong></td>
+                    <td>imap.gmail.com</td>
+                    <td>IMAP server (not POP3)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Port</strong></td>
+                    <td>993</td>
+                    <td>Standard IMAP SSL port</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Authentication</strong></td>
+                    <td>osTicket.tutorials1@gmail.com & App Password</td>
+                    <td>Your email account and app-specific password</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Mail Folder</strong></td>
+                    <td>INBOX</td>
+                    <td>Folder to fetch emails from</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Fetch Interval Configuration</strong></td>
+                    <td>Set fetching frequency, emails per fetch and fetched emails folder</td>
+                    <td>Configure how often emails are fetched</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="callout info">
+              <strong>Tip:</strong> Use IMAP instead of POP3. IMAP keeps emails on the server, allowing you to access
+              them from multiple locations. POP3 downloads and deletes emails.
+            </div>
+
+            <div class="content-block">
+              <h4>Auto Fetching Configuration</h4>
+              <p>Under Email settings, configure how often osTicket fetches new emails:</p>
+              <ul class="checklist">
+                <li>Enable "Fetch on Cron" or email fetching</li>
+                <li>Enable all Emails</li>
+                <li>Configure any other personalized settings</li>
+              </ul>
+            </div>
+
+            <div class="content-block">
+              <h4>Test Email Sending and Receiving</h4>
+              <p>After entering SMTP and IMAP credentials, navigate to diagnostics and send test email to verify the
+                configuration works. You should see a success message, then send incoming email to the configured
+                address and check if it creates a ticket and sends a notification.</p>
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Screenshot: Email Configuration Settings</h4>
+              <p>Email configuration settings for both SMTP and IMAP.</p>
+              <img src="screenshots/Configuration4.png" alt="Email Configuration Settings"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Screenshot: Email Name and Address Configuration</h4>
+              <p>Configuration of the email name and address for outgoing and incoming emails.</p>
+              <img src="screenshots/Configuration5.png" alt="Email Name and Address Configuration"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Screenshot: SMTP Configuration</h4>
+              <p>Outgoing email setup using SMTP settings.</p>
+              <img src="screenshots/Configuration6.png" alt="SMTP Configuration"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Screenshot: Remote Box or Incoming Email Setup (IMAP)</h4>
+              <p>IMAP configuration settings.</p>
+              <img src="screenshots/Configuration7.png" alt="Incoming Email Setup"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Screenshot: Outgoing Email Test Success</h4>
+              <p>Confirmation message after successful email test.</p>
+              <img src="screenshots/Configuration9.png" alt="Email Test"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Screenshot: Sent Email Viewed From End User</h4>
+              <p>The email received by the end user after sending a test email from the admin panel.</p>
+              <img src="screenshots/Configuration10.png" alt="Email Test"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Screenshot: Test Incoming Emails in osTicket</h4>
+              <p>After receiving the test email, I replied to verify that osTicket correctly fetches incoming emails
+                and creates a ticket.</p>
+              <img src="screenshots/Configuration11.png" alt="Reply to Test Email"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
           </div>
-
-          <div class="content-block">
-            <h4>Email Account Configuration</h4>
-            <p>Configure the email account for incoming messages:</p>
-            <table class="config-table">
-              <thead>
-                <tr>
-                  <th>Setting</th>
-                  <th>Example Value</th>
-                  <th>Purpose</th>
-                </tr>
-              </thead>
-              <tbody>
-
-                <tr>
-                  <td><strong>Host</strong></td>
-                  <td>imap.gmail.com</td>
-                  <td>IMAP server (not POP3)</td>
-                </tr>
-                <tr>
-                  <td><strong>Port</strong></td>
-                  <td>993</td>
-                  <td>Standard IMAP SSL port</td>
-                </tr>
-                <tr>
-                  <td><strong>Authentication</strong></td>
-                  <td>osTicket.tutorials1@gmail.com & App Password</td>
-                  <td>Your email account and app-specific password</td>
-                </tr>
-                <tr>
-                  <td><strong>Mail Folder</strong></td>
-                  <td>INBOX</td>
-                  <td>Folder to fetch emails from</td>
-                </tr>
-                <tr>
-                  <td><strong>Fetch Interval Configuration</strong></td>
-                  <td>Set fetching frequency, emails per fetch and fetched emails folder</td>
-                  <td>Configure how often emails are fetched</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="callout info">
-            <strong>Tip:</strong> Used IMAP instead of POP3. IMAP keeps emails on the server, allowing you to access
-            them
-            from multiple locations. POP3 downloads and deletes emails.
-          </div>
-
-
-
-          <div class="content-block">
-            <h4>Auto Fetching Configuration</h4>
-            <p>Under Email settings, configure how often osTicket fetches new emails:</p>
-            <ul class="checklist">
-              <li>Enable "Fetch on Cron" or email fetching</li>
-              <li>Enable all Emails</li>
-              <li>configure any other personalised settings</li>
-
-            </ul>
-          </div>
-          <div class="content-block">
-            <h4>Test Email Sending and Receiving</h4>
-            <p>After entering SMTP and IMAP credentials, navigate to diagnostics and send test email to verify the
-              configuration works. You should see a success, then send incoming email to the configured address and
-              check if it creates a ticket and sends a notification
-              message.</p>
-          </div>
-
-          <div class="screenshot-section">
-            <h4>Screenshot: Show Email Configuration Settings</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              Email configuration settings for both SMTP and IMAP.
-            </p>
-
-            <img src="screenshots/Configuration4.png" alt="Email Configuration Settings"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-          </div>
-          <div class="screenshot-section">
-            <h4>Screenshot: Email Name and Address Configuration</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              Configuration of the email name and address for outgoing and incoming emails.
-            </p>
-
-
-            <img src="screenshots/Configuration5.png" alt="Email Name and Address Configuration"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-          </div>
-
-          <div class="screenshot-section">
-            <h4>Screenshot: SMTP Configuration</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              Outgoing email setup using SMTP settings.
-            </p>
-
-            <img src="screenshots/Configuration6.png" alt="SMTP Configuration"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-          </div>
-
-
-          <div class="screenshot-section">
-            <h4>Screenshot: Remote Box or Incoming Email Setup (IMAP)</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              IMAP configuration settings.
-            </p>
-
-            <img src="screenshots/Configuration7.png" alt="Incoming Email Setup"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-          </div>
-
-          <div class="screenshot-section">
-            <h4>Screenshot: Outgoing Email Test Success</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              Confirmation message after successful email test.
-            </p>
-
-            <img src="screenshots/Configuration9.png" alt="Email Test"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-          </div>
-
-          <div class="screenshot-section">
-            <h4>Screenshot: Sent Email Viewed From End User</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              The email received by the end user after sending a test email from the admin panel.
-            </p>
-
-            <img src="screenshots/Configuration10.png" alt="Email Test"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-          </div>
-
-          <div class="screenshot-section">
-            <h4>Screenshot:Test Incoming Emails in osTicket</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              After receiving the test email, I replyed to it to verify that osTicket correctly fetches incoming emails
-              it
-              would create a ticket.
-            </p>
-
-            <img src="screenshots/Configuration11.png" alt="Reply to Test Email"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-          </div>
-
         </div>
       </section>
 
       <!-- SLA Setup -->
       <section class="proj-section" id="sla-setup">
-        <h2 class="section-title">Service Level Agreement (SLA) Setup</h2>
-        <p class="section-intro">
-          SLAs define response and resolution time targets for tickets. This is essential for tracking helpdesk
-          performance and meeting customer expectations.
-        </p>
+        <div class="content-block">
+          <h2>Service Level Agreement (SLA) Setup</h2>
+          <p class="section-intro">
+            SLAs define response and resolution time targets for tickets. This is essential for tracking helpdesk
+            performance and meeting customer expectations.
+          </p>
 
-        <div class="step-group">
-          <div class="step-header">
-            <div class="step-num">4</div>
-            <div class="step-header-text">
-              <h3>Create SLA Plans</h3>
-              <p>Define response and resolution time targets</p>
-            </div>
-          </div>
-
-          <div class="content-block">
-            <h4>Access SLA Settings</h4>
-            <p>Navigate to: <strong>Manage → SLA → Add New SLA Plan</strong></p>
-          </div>
-
-          <div class="content-block">
-            <h4>Common SLA Plan Examples</h4>
-            <p>Here are typical SLA configurations for different ticket priorities:</p>
-            <table class="config-table">
-              <thead>
-                <tr>
-                  <th>SLA Name</th>
-                  <th>Grace Period</th>
-                  <th>Schedule</th>
-                  <th>Priority use</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Critical</strong></td>
-                  <td>2 hours</td>
-                  <td>24/7</td>
-                  <td>High/Critical</td>
-                </tr>
-                <tr>
-                  <td><strong>High Priority</strong></td>
-                  <td>4 hours</td>
-                  <td>24/5</td>
-                  <td>High</td>
-                </tr>
-                <tr>
-                  <td><strong>Standard</strong></td>
-                  <td>24 hours</td>
-                  <td>Business Hours</td>
-                  <td>Medium</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="content-block">
-            <h4>Creating an SLA Plan</h4>
-            <p>When adding a new SLA, fill in these fields:</p>
-            <ul class="checklist">
-              <li><strong>Name:</strong> Descriptive name (e.g., "Critical Issues")</li>
-              <li><strong>Status:</strong> Mark as Active when ready</li>
-              <li><strong>Grace Period:</strong> Time before SLA counting starts (e.g., 0 hours for immediate)</li>
-              <li><strong>Schedule:</strong> Expected resolution and response time (in hours)</li>
-              <li><strong>Transient</strong> Whether to override existing SLA times</li>
-              <li><strong>Ticket Overdue Alerts: </strong> To disable overdue alerts notices. (either ticket transfer or
-                help topic change ) </li>
-            </ul>
-          </div>
-
-          <div class="callout info">
-            <strong>Business Hours:</strong> In osTicket, working time is configured using
-            <strong>Admin Panel → Manage → Schedules</strong>. SLA Plans can then be linked to a schedule so that ticket
-            deadlines only count during defined working hours (e.g. Monday–Friday, 8am–5pm, excluding holidays if
-            configured).
-          </div>
-
-          <div class="content-block">
-
-            <h4>Screenshots: SLA Configuration (osTicket)</h4>
-
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
-              The following sections show individual SLA plan configurations in osTicket, including grace period,
-              schedule, and priority definitions.
-            </p>
-
-            <!-- 🔴 Critical SLA -->
-            <div class="screenshot-section">
-              <h5>Critical SLA Configuration</h5>
-              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-                Used for system outages and security incidents requiring immediate response.
-              </p>
-
-              <img src="screenshots/Configuration13.png" alt="Critical SLA configuration in osTicket"
-                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">4</div>
+              <div class="step-header-text">
+                <h3>Create SLA Plans</h3>
+                <p>Define response and resolution time targets</p>
+              </div>
             </div>
 
-            <!-- 🟠 High SLA -->
-            <div class="screenshot-section">
-              <h5>High Priority SLA Configuration</h5>
-              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-                Used for major functionality issues affecting business operations.
-              </p>
-
-              <img src="screenshots/Configuration15.png (mistake).png" alt="High priority SLA configuration in osTicket"
-                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            <div class="content-block">
+              <h4>Access SLA Settings</h4>
+              <p>Navigate to: <strong>Manage → SLA → Add New SLA Plan</strong></p>
             </div>
 
-            <!-- 🟡 Standard SLA -->
-            <div class="screenshot-section">
-              <h5>Standard SLA Configuration</h5>
-              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-                Used for normal support requests and general service issues.
-              </p>
-
-              <img src="screenshots/Confidential16.png" alt="Standard SLA configuration in osTicket"
-                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            <div class="content-block">
+              <h4>Common SLA Plan Examples</h4>
+              <p>Here are typical SLA configurations for different ticket priorities:</p>
+              <table class="config-table">
+                <thead>
+                  <tr>
+                    <th>SLA Name</th>
+                    <th>Grace Period</th>
+                    <th>Schedule</th>
+                    <th>Priority Use</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Critical</strong></td>
+                    <td>2 hours</td>
+                    <td>24/7</td>
+                    <td>High/Critical</td>
+                  </tr>
+                  <tr>
+                    <td><strong>High Priority</strong></td>
+                    <td>4 hours</td>
+                    <td>24/5</td>
+                    <td>High</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Standard</strong></td>
+                    <td>24 hours</td>
+                    <td>Business Hours</td>
+                    <td>Medium</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
-            <!-- 🟢 All SLA -->
-            <div class="screenshot-section">
-              <h5>All SLA Configurations</h5>
-              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-                List of all SLA configurations.
-              </p>
-
-              <img src="screenshots/Configuration17.png" alt="All SLA configurations in osTicket"
-                style="width:100%; border:1px solid var(--border); border-radius:8px;">
-            </div>
-            <!-- 🟢 Schedule -->
-            <div class="screenshot-section">
-              <h5>Schedule Configuration</h5>
-              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-                Define working hours and holidays for SLA calculations.
-              </p>
-
-              <img src="screenshots/Configuration18.png" alt="Schedule configuration in osTicket"
-                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            <div class="content-block">
+              <h4>Creating an SLA Plan</h4>
+              <p>When adding a new SLA, fill in these fields:</p>
+              <ul class="checklist">
+                <li><strong>Name:</strong> Descriptive name (e.g., "Critical Issues")</li>
+                <li><strong>Status:</strong> Mark as Active when ready</li>
+                <li><strong>Grace Period:</strong> Time before SLA counting starts (e.g., 0 hours for immediate)</li>
+                <li><strong>Schedule:</strong> Expected resolution and response time (in hours)</li>
+                <li><strong>Transient:</strong> Whether to override existing SLA times</li>
+                <li><strong>Ticket Overdue Alerts:</strong> To disable overdue alerts notices (ticket transfer or help
+                  topic change)</li>
+              </ul>
             </div>
 
+            <div class="callout info">
+              <strong>Business Hours:</strong> In osTicket, working time is configured using
+              <strong>Admin Panel → Manage → Schedules</strong>. SLA Plans can then be linked to a schedule so that
+              ticket deadlines only count during defined working hours (e.g. Monday–Friday, 8am–5pm, excluding holidays
+              if configured).
+            </div>
+
+            <div class="content-block">
+              <h4>Screenshots: SLA Configuration</h4>
+              <p>The following sections show individual SLA plan configurations in osTicket, including grace period,
+                schedule, and priority definitions.</p>
+
+              <div class="screenshot-section">
+                <h5>Critical SLA Configuration</h5>
+                <p>Used for system outages and security incidents requiring immediate response.</p>
+                <img src="screenshots/Configuration13.png" alt="Critical SLA configuration in osTicket"
+                  style="width:100%; border:1px solid var(--border); border-radius:8px;">
+              </div>
+
+              <div class="screenshot-section">
+                <h5>High Priority SLA Configuration</h5>
+                <p>Used for major functionality issues affecting business operations.</p>
+                <img src="screenshots/Configuration15.png (mistake).png"
+                  alt="High priority SLA configuration in osTicket"
+                  style="width:100%; border:1px solid var(--border); border-radius:8px;">
+              </div>
+
+              <div class="screenshot-section">
+                <h5>Standard SLA Configuration</h5>
+                <p>Used for normal support requests and general service issues.</p>
+                <img src="screenshots/Confidential16.png" alt="Standard SLA configuration in osTicket"
+                  style="width:100%; border:1px solid var(--border); border-radius:8px;">
+              </div>
+
+              <div class="screenshot-section">
+                <h5>All SLA Configurations</h5>
+                <p>List of all SLA configurations.</p>
+                <img src="screenshots/Configuration17.png" alt="All SLA configurations in osTicket"
+                  style="width:100%; border:1px solid var(--border); border-radius:8px;">
+              </div>
+
+              <div class="screenshot-section">
+                <h5>Schedule Configuration</h5>
+                <p>Define working hours and holidays for SLA calculations.</p>
+                <img src="screenshots/Configuration18.png" alt="Schedule configuration in osTicket"
+                  style="width:100%; border:1px solid var(--border); border-radius:8px;">
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- Departments & Teams -->
       <section class="proj-section" id="departments">
-        <h2 class="section-title">Departments & Teams</h2>
-
-        <p class="section-intro">
-          Organize helpdesk operations using departments and teams to ensure proper ticket routing, workload
-          distribution, and structured support management in osTicket.
-        </p>
-
-        <div class="step-group">
-
-          <div class="step-header">
-            <div class="step-num">5</div>
-            <div class="step-header-text">
-              <h3>Create Departments</h3>
-              <p>Set up structured support departments in osTicket</p>
-            </div>
-          </div>
-
-          <!-- Screenshot: Department Access -->
-          <div class="screenshot-section">
-            <h4>Access Department Settings</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              Navigate to Admin Panel → Agents → Departments → Add New Department
-            </p>
-
-            <img src="screenshots/Configuration21png.png" alt="osTicket department settings menu navigation"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-          </div>
-
-          <!-- Screenshot: Department Creation -->
-          <div class="screenshot-section">
-            <h4>Department Creation Form</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              Example of creating a new department and configuring email, SLA, and assignment rules.
-            </p>
-
-            <img src="screenshots/Configuration20.png" alt="osTicket department creation form with configuration fields"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-          </div>
-
-          <!-- Screenshot: Department List -->
-          <div class="screenshot-section">
-            <h4>Departments Overview</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              List of all configured departments including SLA assignment and email routing.
-            </p>
-
-            <img src="screenshots/Configuration19.png" alt="osTicket departments list showing configured departments"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-          </div>
-
-          <!-- Table stays the same -->
-          <div class="content-block">
-            <h4>Department Configuration Example</h4>
-            <p>Common department examples for a typical organization:</p>
-
-            <table class="config-table">
-              <thead>
-                <tr>
-                  <th>Department</th>
-                  <th>Outgoing Email</th>
-                  <th>Manager</th>
-                  <th>SLA</th>
-                  <th>Schedule</th>
-                  <th>Ticket Assignment</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Technical Support</strong></td>
-                  <td>osTicket.tutorials1@gmail.com</td>
-                  <td>Enejo, Gideon</td>
-                  <td>Critical</td>
-                  <td>24/7</td>
-                  <td>Department Members only</td>
-                </tr>
-                <tr>
-                  <td><strong>Maintenance</strong></td>
-                  <td>giddydreamly@gmail.com</td>
-                  <td>Solomon Steven</td>
-                  <td>Standard</td>
-                  <td>24/5</td>
-                  <td>Department Members only</td>
-                </tr>
-                <tr>
-                  <td><strong>Sales</strong></td>
-                  <td>sales@gmail.com</td>
-                  <td>Sales Manager</td>
-                  <td>High Priority</td>
-                  <td>Mon–Fri (8am–5pm + US Holidays)</td>
-                  <td>Department Members only</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-        </div>
-
-        <!-- STEP 6 -->
-
-        <div class="step-group">
-
-          <div class="step-header">
-            <div class="step-num">6</div>
-            <div class="step-header-text">
-              <h3>Assign Agents to Departments</h3>
-              <p>Manage staff roles and ticket ownership</p>
-            </div>
-          </div>
-
-          <!-- Screenshot: Add Agent -->
-          <div class="screenshot-section">
-            <h4>Add New Agent</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              Creating a new agent account with department assignment and role configuration.
-            </p>
-
-            <img src="screenshots/Configuration23.png" alt="osTicket add new agent form"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-          </div>
-
-          <!-- Screenshot: Agent Assignment -->
-          <div class="screenshot-section">
-            <h4>Agent Department Assignment</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              Assigning agents to departments and defining their access levels and responsibilities.
-            </p>
-
-            <img src="screenshots/Configuration22.png" alt="osTicket agent department assignment settings"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-          </div>
-
-          <!-- Roles Table -->
-          <div class="content-block">
-            <h4>Staff Roles Explained</h4>
-
-            <table class="config-table">
-              <thead>
-                <tr>
-                  <th>Role</th>
-                  <th>Responsibilities</th>
-                  <th>Permissions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Agent</strong></td>
-                  <td>Handle assigned tickets</td>
-                  <td>View/respond to own tickets</td>
-                </tr>
-                <tr>
-                  <td><strong>Manager</strong></td>
-                  <td>Oversee department operations</td>
-                  <td>Manage tickets and agents</td>
-                </tr>
-                <tr>
-                  <td><strong>Admin</strong></td>
-                  <td>Full system control</td>
-                  <td>All settings and configurations</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-        </div>
-
-        <!-- 🔥 FINAL EXPLANATION -->
         <div class="content-block">
-          <h4>Summary Explanation</h4>
-
-          <p>
-            In osTicket, departments are used to organize support teams based on function (e.g., Technical Support,
-            Sales, Maintenance). Each department can have its own email, SLA plan, and ticket routing rules.
+          <h2>Departments & Teams</h2>
+          <p class="section-intro">
+            Organize helpdesk operations using departments and teams to ensure proper ticket routing, workload
+            distribution, and structured support management in osTicket.
           </p>
 
-          <p>
-            Agents are assigned to departments based on their role and responsibility. This ensures that tickets are
-            automatically routed to the correct team and handled by the appropriate staff members.
-          </p>
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">5</div>
+              <div class="step-header-text">
+                <h3>Create Departments</h3>
+                <p>Set up structured support departments in osTicket</p>
+              </div>
+            </div>
 
-          <p>
-            This structure improves workflow efficiency, ensures proper escalation, and allows SLA policies to be
-            applied correctly based on department needs and business priority.
-          </p>
+            <div class="screenshot-section">
+              <h4>Access Department Settings</h4>
+              <p>Navigate to Admin Panel → Agents → Departments → Add New Department</p>
+              <img src="screenshots/Configuration21png.png" alt="osTicket department settings menu navigation"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Department Creation Form</h4>
+              <p>Example of creating a new department and configuring email, SLA, and assignment rules.</p>
+              <img src="screenshots/Configuration20.png"
+                alt="osTicket department creation form with configuration fields"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Departments Overview</h4>
+              <p>List of all configured departments including SLA assignment and email routing.</p>
+              <img src="screenshots/Configuration19.png" alt="osTicket departments list showing configured departments"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+            <div class="content-block">
+              <h4>Department Configuration Example</h4>
+              <p>Common department examples for a typical organization:</p>
+              <table class="config-table">
+                <thead>
+                  <tr>
+                    <th>Department</th>
+                    <th>Outgoing Email</th>
+                    <th>Manager</th>
+                    <th>SLA</th>
+                    <th>Schedule</th>
+                    <th>Ticket Assignment</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Technical Support</strong></td>
+                    <td>osTicket.tutorials1@gmail.com</td>
+                    <td>Enejo, Gideon</td>
+                    <td>Critical</td>
+                    <td>24/7</td>
+                    <td>Department Members only</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Maintenance</strong></td>
+                    <td>giddydreamly@gmail.com</td>
+                    <td>Solomon Steven</td>
+                    <td>Standard</td>
+                    <td>24/5</td>
+                    <td>Department Members only</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Sales</strong></td>
+                    <td>sales@gmail.com</td>
+                    <td>Sales Manager</td>
+                    <td>High Priority</td>
+                    <td>Mon–Fri (8am–5pm + US Holidays)</td>
+                    <td>Department Members only</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">6</div>
+              <div class="step-header-text">
+                <h3>Assign Agents to Departments</h3>
+                <p>Manage staff roles and ticket ownership</p>
+              </div>
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Add New Agent</h4>
+              <p>Creating a new agent account with department assignment and role configuration.</p>
+              <img src="screenshots/Configuration23.png" alt="osTicket add new agent form"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Agent Department Assignment</h4>
+              <p>Assigning agents to departments and defining their access levels and responsibilities.</p>
+              <img src="screenshots/Configuration22.png" alt="osTicket agent department assignment settings"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+            <div class="content-block">
+              <h4>Staff Roles Explained</h4>
+              <table class="config-table">
+                <thead>
+                  <tr>
+                    <th>Role</th>
+                    <th>Responsibilities</th>
+                    <th>Permissions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Agent</strong></td>
+                    <td>Handle assigned tickets</td>
+                    <td>View/respond to own tickets</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Manager</strong></td>
+                    <td>Oversee department operations</td>
+                    <td>Manage tickets and agents</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Admin</strong></td>
+                    <td>Full system control</td>
+                    <td>All settings and configurations</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="content-block">
+            <h4>Summary Explanation</h4>
+            <p>In osTicket, departments are used to organize support teams based on function (e.g., Technical Support,
+              Sales, Maintenance). Each department can have its own email, SLA plan, and ticket routing rules.</p>
+            <p>Agents are assigned to departments based on their role and responsibility. This ensures that tickets are
+              automatically routed to the correct team and handled by the appropriate staff members.</p>
+            <p>This structure improves workflow efficiency, ensures proper escalation, and allows SLA policies to be
+              applied correctly based on department needs and business priority.</p>
+          </div>
         </div>
-
       </section>
 
       <!-- General Settings -->
       <section class="proj-section" id="settings">
-
-        <h2 class="section-title">General System Settings</h2>
-
-        <p class="section-intro">
-          This section covers the core system configuration settings in osTicket, including helpdesk identity, security
-          options, localization, and attachment handling. These settings define how the helpdesk behaves globally.
-        </p>
-
-        <!-- GENERAL SETTINGS -->
         <div class="content-block">
-          <h4>General Settings Overview</h4>
-
-          <ul class="checklist">
-            <li><strong>Helpdesk Status:</strong> Online or Offline mode for system availability</li>
-            <li><strong>Helpdesk URL:</strong> Base URL used for system access and email links</li>
-            <li><strong>Helpdesk Name:</strong> Display name of your support system</li>
-            <li><strong>Default Department:</strong> Department assigned to unclassified tickets</li>
-            <li><strong>Force HTTPS:</strong> Enforces secure HTTPS connections for all requests</li>
-            <li><strong>Collision Avoidance Duration:</strong> Prevents multiple agents editing same ticket (minutes)
-            </li>
-            <li><strong>Default Page Size:</strong> Number of records displayed per page</li>
-            <li><strong>Default Log Level:</strong> Controls system logging verbosity</li>
-            <li><strong>Purge Logs:</strong> Automatically deletes old system logs</li>
-            <li><strong>Show Avatars:</strong> Displays user avatars in ticket threads</li>
-            <li><strong>Enable Rich Text:</strong> Allows HTML formatting in tickets and emails</li>
-            <li><strong>Allow System iFrame:</strong> Enables embedding osTicket in external pages</li>
-            <li><strong>Embedded Domain Whitelist:</strong> Allowed domains for iframe embedding</li>
-            <li><strong>ACL (Access Control):</strong> Defines system access rules</li>
-          </ul>
-        </div>
-
-        <!-- DATE & TIME -->
-        <div class="content-block">
-          <h4>Date and Time Configuration</h4>
-
-          <ul class="checklist">
-            <li><strong>Default Locale:</strong> System language and regional format</li>
-            <li><strong>Default Time Zone:</strong> Ensures correct time tracking for tickets</li>
-            <li><strong>Date Format:</strong> Example: 4/10/26</li>
-            <li><strong>Time Format:</strong> Example: 8:04 PM</li>
-            <li><strong>Date & Time Format:</strong> Example: 4/10/26 8:04 PM</li>
-            <li><strong>Full Format:</strong> Example: Friday, April 10, 2026 at 8:04 PM</li>
-            <li><strong>Default Schedule:</strong> Defines business hours used for SLA calculations</li>
-          </ul>
-        </div>
-
-        <!-- LANGUAGE -->
-        <div class="content-block">
-          <h4>System Languages</h4>
-
-          <ul class="checklist">
-            <li><strong>Primary Language:</strong> Main system language used in interface</li>
-            <li><strong>Secondary Languages:</strong> Additional supported languages for users</li>
-          </ul>
-        </div>
-
-        <!-- ATTACHMENTS -->
-        <div class="content-block">
-          <h4>Attachments Storage and Settings</h4>
-
-          <ul class="checklist">
-            <li><strong>Store Attachments:</strong> Defines where uploaded files are stored (database or filesystem)
-            </li>
-            <li><strong>Agent Maximum File Size:</strong> Limits file upload size per agent</li>
-            <li><strong>Login Required:</strong> Restricts attachment access to authenticated users only</li>
-          </ul>
-        </div>
-
-        <!-- FINAL CHECKLIST -->
-        <div class="content-block">
-          <h4>Final Verification Checklist</h4>
-
-          <ul class="checklist">
-            <li>✓ Email sending (SMTP) configured and tested</li>
-            <li>✓ Email fetching (IMAP) configured and working</li>
-            <li>✓ SLA plans created (Critical, High, Standard, Low)</li>
-            <li>✓ Departments created and assigned correctly</li>
-            <li>✓ Agents added and mapped to departments</li>
-            <li>✓ Routing rules configured for ticket distribution</li>
-            <li>✓ Business hours and schedules configured</li>
-            <li>✓ System timezone and locale set correctly</li>
-            <li>✓ Test ticket created and resolved successfully</li>
-          </ul>
-        </div>
-
-        <!-- FINAL NOTE -->
-        <div class="callout info">
-          <strong>Next Steps:</strong> After completing system configuration, perform end-to-end testing by submitting
-          tickets,
-          assigning agents, and verifying SLA enforcement, email notifications, and routing behavior.
-        </div>
-
-        <div class="content-block">
-          <h4>Screenshots: System Settings Configuration</h4>
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-            The following screenshot show key system settings configured in osTicket, including general settings,
-            localization, and attachment configuration.
+          <h2>General System Settings</h2>
+          <p class="section-intro">
+            This section covers the core system configuration settings in osTicket, including helpdesk identity,
+            security options, localization, and attachment handling. These settings define how the helpdesk behaves
+            globally.
           </p>
 
-          <!-- General Settings -->
-          <div class="screenshot-section">
-            <h5>General Settings</h5>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              Configuration of helpdesk name, URL, default department, and system behavior settings.
-            </p>
-
-            <img src="screenshots/Configuration28.png" alt="osTicket general system settings configuration"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
+          <div class="content-block">
+            <h4>General Settings Overview</h4>
+            <ul class="checklist">
+              <li><strong>Helpdesk Status:</strong> Online or Offline mode for system availability</li>
+              <li><strong>Helpdesk URL:</strong> Base URL used for system access and email links</li>
+              <li><strong>Helpdesk Name:</strong> Display name of your support system</li>
+              <li><strong>Default Department:</strong> Department assigned to unclassified tickets</li>
+              <li><strong>Force HTTPS:</strong> Enforces secure HTTPS connections for all requests</li>
+              <li><strong>Collision Avoidance Duration:</strong> Prevents multiple agents editing same ticket (minutes)
+              </li>
+              <li><strong>Default Page Size:</strong> Number of records displayed per page</li>
+              <li><strong>Default Log Level:</strong> Controls system logging verbosity</li>
+              <li><strong>Purge Logs:</strong> Automatically deletes old system logs</li>
+              <li><strong>Show Avatars:</strong> Displays user avatars in ticket threads</li>
+              <li><strong>Enable Rich Text:</strong> Allows HTML formatting in tickets and emails</li>
+              <li><strong>Allow System iFrame:</strong> Enables embedding osTicket in external pages</li>
+              <li><strong>Embedded Domain Whitelist:</strong> Allowed domains for iframe embedding</li>
+              <li><strong>ACL (Access Control):</strong> Defines system access rules</li>
+            </ul>
           </div>
 
-          <div style="margin-top: 2rem; text-align: center;">
-            <a href="osticket-Lifecycle.html" class="next-btn">
-              Lifecycle and Workflow →
-            </a>
+          <div class="content-block">
+            <h4>Date and Time Configuration</h4>
+            <ul class="checklist">
+              <li><strong>Default Locale:</strong> System language and regional format</li>
+              <li><strong>Default Time Zone:</strong> Ensures correct time tracking for tickets</li>
+              <li><strong>Date Format:</strong> Example: 4/10/26</li>
+              <li><strong>Time Format:</strong> Example: 8:04 PM</li>
+              <li><strong>Date & Time Format:</strong> Example: 4/10/26 8:04 PM</li>
+              <li><strong>Full Format:</strong> Example: Friday, April 10, 2026 at 8:04 PM</li>
+              <li><strong>Default Schedule:</strong> Defines business hours used for SLA calculations</li>
+            </ul>
+          </div>
+
+          <div class="content-block">
+            <h4>System Languages</h4>
+            <ul class="checklist">
+              <li><strong>Primary Language:</strong> Main system language used in interface</li>
+              <li><strong>Secondary Languages:</strong> Additional supported languages for users</li>
+            </ul>
+          </div>
+
+          <div class="content-block">
+            <h4>Attachments Storage and Settings</h4>
+            <ul class="checklist">
+              <li><strong>Store Attachments:</strong> Defines where uploaded files are stored (database or filesystem)
+              </li>
+              <li><strong>Agent Maximum File Size:</strong> Limits file upload size per agent</li>
+              <li><strong>Login Required:</strong> Restricts attachment access to authenticated users only</li>
+            </ul>
+          </div>
+
+          <div class="content-block">
+            <h4>Final Verification Checklist</h4>
+            <ul class="checklist">
+              <li>Email sending (SMTP) configured and tested</li>
+              <li>Email fetching (IMAP) configured and working</li>
+              <li>SLA plans created (Critical, High, Standard, Low)</li>
+              <li>Departments created and assigned correctly</li>
+              <li>Agents added and mapped to departments</li>
+              <li>Routing rules configured for ticket distribution</li>
+              <li>Business hours and schedules configured</li>
+              <li>System timezone and locale set correctly</li>
+              <li>Test ticket created and resolved successfully</li>
+            </ul>
+          </div>
+
+          <div class="callout info">
+            <strong>Next Steps:</strong> After completing system configuration, perform end-to-end testing by submitting
+            tickets, assigning agents, and verifying SLA enforcement, email notifications, and routing behavior.
+          </div>
+
+          <div class="content-block">
+            <h4>Screenshots: System Settings Configuration</h4>
+            <p>The following screenshot shows key system settings configured in osTicket, including general settings,
+              localization, and attachment configuration.</p>
+
+            <div class="screenshot-section">
+              <h5>General Settings</h5>
+              <p>Configuration of helpdesk name, URL, default department, and system behavior settings.</p>
+              <img src="screenshots/Configuration28.png" alt="osTicket general system settings configuration"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+            <div style="margin-top: 2rem;">
+              <a href="osticket-Lifecycle.html" class="next-btn">
+                Lifecycle and Workflow →
+              </a>
+            </div>
           </div>
         </div>
-
       </section>
     </main>
   </div>

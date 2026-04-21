@@ -8,6 +8,109 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="botantech.css" />
   <style>
+    /* ===============================
+   GLOBAL RESPONSIVE SYSTEM
+================================ */
+
+    /* Large screens (Desktops) */
+    @media (min-width: 1200px) {
+      .hero {
+        padding: 6rem 8%;
+      }
+    }
+
+    /* Medium screens (Tablets) */
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+      }
+
+      .hero-desc {
+        margin: 0 auto 2rem;
+      }
+
+      .hero-ctas {
+        justify-content: center;
+      }
+
+      .hero-right {
+        display: flex;
+      }
+    }
+
+    /* Small screens (Phones) */
+    @media (max-width: 768px) {
+
+      /* NAV */
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .nav-links li a {
+        font-size: 0.85rem;
+      }
+
+      /* HERO */
+      .hero {
+        padding: 2.5rem 5%;
+      }
+
+      .hero h2 {
+        font-size: 1.6rem;
+      }
+
+      .hero-desc {
+        font-size: 0.95rem;
+      }
+
+      .hero-right {
+        display: none;
+        /* cleaner mobile UI */
+      }
+
+      /* QUICK NAV */
+      .quick-nav {
+        padding: 2rem 5%;
+      }
+
+      .quick-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Extra small devices */
+    @media (max-width: 480px) {
+
+      .hero h2 {
+        font-size: 1.4rem;
+      }
+
+      .hero-desc {
+        font-size: 0.9rem;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .quick-card {
+        padding: 1.2rem;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     nav {
       position: sticky;
       top: 0;
@@ -837,54 +940,59 @@
 
       <!-- Prerequisites Section -->
       <section class="proj-section" id="prerequisites">
-        <h2 class="section-title">Prerequisites & System Requirements</h2>
-        <p class="section-intro">
-          Before beginning the osTicket installation, ensure your system meets all required specifications. This section
-          outlines what you'll need.
-        </p>
+        <div class="content-block">
 
-        <div class="step-group">
-          <div class="step-header">
-            <div class="step-num">1</div>
-            <div class="step-header-text">
-              <h3>System Requirements</h3>
-              <p>Verify your server meets minimum specifications</p>
+
+          <h2 class="section-title">Prerequisites & System Requirements</h2>
+          <p class="section-intro">
+            Before beginning the osTicket installation, ensure your system meets all required specifications. This
+            section
+            outlines what you'll need.
+          </p>
+
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">1</div>
+              <div class="step-header-text">
+                <h3>System Requirements</h3>
+                <p>Verify your server meets minimum specifications</p>
+              </div>
             </div>
-          </div>
 
-          <div class="content-block">
-            <h4>Hardware Requirements</h4>
-            <ul class="checklist">
-              <li>Processor: 1 GHz or faster CPU (2+ cores recommended)</li>
-              <li>RAM: Minimum 512 MB (2 GB recommended for production)</li>
-              <li>Disk Space: At least 500 MB for installation</li>
-              <li>Network: Active internet connection for package downloads</li>
-            </ul>
-          </div>
+            <div class="content-block">
+              <h4>Hardware Requirements</h4>
+              <ul class="checklist">
+                <li>Processor: 1 GHz or faster CPU (2+ cores recommended)</li>
+                <li>RAM: Minimum 512 MB (2 GB recommended for production)</li>
+                <li>Disk Space: At least 500 MB for installation</li>
+                <li>Network: Active internet connection for package downloads</li>
+              </ul>
+            </div>
 
-          <div class="content-block">
-            <h4>Software Requirements</h4>
-            <ul class="checklist">
-              <li>Operating System: Linux (Ubuntu 20.04 LTS recommended)</li>
-              <li>Web Server: Apache 2.4.x with mod_rewrite enabled</li>
-              <li>PHP: 8.0+ (8.3+ recommended) with required extensions</li>
-              <li>Database: MySQL 5.7+ or MariaDB 10.0+</li>
-            </ul>
-          </div>
+            <div class="content-block">
+              <h4>Software Requirements</h4>
+              <ul class="checklist">
+                <li>Operating System: Linux (Ubuntu 20.04 LTS recommended)</li>
+                <li>Web Server: Apache 2.4.x with mod_rewrite enabled</li>
+                <li>PHP: 8.0+ (8.3+ recommended) with required extensions</li>
+                <li>Database: MySQL 5.7+ or MariaDB 10.0+</li>
+              </ul>
+            </div>
 
-          <div class="callout info">
-            <strong>Tip:</strong> For this guide, we're using Ubuntu 20.04 LTS with Apache, PHP, and MySQL. All
-            commands are specific to this setup.
-          </div>
+            <div class="callout info">
+              <strong>Tip:</strong> For this guide, we're using Ubuntu 20.04 LTS with Apache, PHP, and MySQL. All
+              commands are specific to this setup.
+            </div>
 
-          <div class="screenshot-section">
-            <h4>Screenshot: System Verification</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-              Terminal output confirming system meets requirements.
-            </p>
+            <div class="screenshot-section">
+              <h4>Screenshot: System Verification</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Terminal output confirming system meets requirements.
+              </p>
 
-            <img src="screenshots/Screenshot 2026-03-31 211039.png" alt="System Verification Terminal"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
+              <img src="screenshots/Screenshot 2026-03-31 211039.png" alt="System Verification Terminal"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
           </div>
         </div>
       </section>
@@ -893,158 +1001,165 @@
 
       <!-- Dependencies Section -->
       <section class="proj-section" id="dependencies">
-        <h2 class="section-title">Installing Required Dependencies</h2>
-        <p class="section-intro">
-          Update your system and install all required packages. This includes PHP modules, Apache components, and
-          database tools.
-        </p>
+        <div class="content-block">
+          <h2 class="section-title">Installing Required Dependencies</h2>
+          <p class="section-intro">
+            Update your system and install all required packages. This includes PHP modules, Apache components, and
+            database tools.
+          </p>
 
-        <div class="step-group">
-          <div class="step-header">
-            <div class="step-num">2</div>
-            <div class="step-header-text">
-              <h3>System Update & Initial Packages</h3>
-              <p>Update system and install foundational packages</p>
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">2</div>
+              <div class="step-header-text">
+                <h3>System Update & Initial Packages</h3>
+                <p>Update system and install foundational packages</p>
+              </div>
+            </div>
+
+            <div class="content-block">
+              <h4>Update Package Manager</h4>
+              <p>First, update your package manager:</p>
+              <div class="code-block">
+                <code>sudo apt update && sudo apt upgrade -y</code>
+              </div>
+            </div>
+
+            <div class="content-block">
+              <h4>Install Apache and PHP</h4>
+              <p>Install Apache web server with PHP</p>
+              <div class="code-block">
+                <code>sudo apt install apache2 php php-mysql libapache2-mod-php</code>
+              </div>
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Screenshot: Package Installation in Progress</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show terminal during apt
+                install output.</p>
+              <img src="screenshots/Screenshot 2026-03-31 210650.png" alt="System Verification Terminal"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
             </div>
           </div>
 
-          <div class="content-block">
-            <h4>Update Package Manager</h4>
-            <p>First, update your package manager:</p>
-            <div class="code-block">
-              <code>sudo apt update && sudo apt upgrade -y</code>
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">3</div>
+              <div class="step-header-text">
+                <h3>Install MySQL</h3>
+                <p>Install required database server</p>
+              </div>
             </div>
-          </div>
 
-          <div class="content-block">
-            <h4>Install Apache and PHP</h4>
-            <p>Install Apache web server with PHP</p>
-            <div class="code-block">
-              <code>sudo apt install apache2 php php-mysql libapache2-mod-php</code>
+            <div class="content-block">
+              <h4>Install Mariadb Server</h4>
+              <p>Install Mariadb 8.0:</p>
+              <div class="code-block">
+                <code>sudo apt install -y mariadb-server</code>
+              </div>
             </div>
-          </div>
 
-          <div class="screenshot-section">
-            <h4>Screenshot: Package Installation in Progress</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show terminal during apt
-              install output.</p>
-            <img src="screenshots/Screenshot 2026-03-31 210650.png" alt="System Verification Terminal"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-          </div>
-        </div>
-
-        <div class="step-group">
-          <div class="step-header">
-            <div class="step-num">3</div>
-            <div class="step-header-text">
-              <h3>Install MySQL</h3>
-              <p>Install required database server</p>
+            <div class="callout warning">
+              <strong>Important:</strong> After installing MariaDB, run <code
+                style="background: rgba(0,0,0,0.1); padding: 2px 4px;">sudo mariadb_secure_installation</code> to secure
+              your database.
             </div>
-          </div>
 
-          <div class="content-block">
-            <h4>Install Mariadb Server</h4>
-            <p>Install Mariadb 8.0:</p>
-            <div class="code-block">
-              <code>sudo apt install -y mariadb-server</code>
+            <div class="screenshot-section">
+              <h4>Screenshot: MySQL Installation Complete</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show completion message
+                confirming all packages installed successfully.</p>
+              <img src="screenshots/Screenshot 2026-04-01 114943.png" alt="System Verification Terminal"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
             </div>
-          </div>
-
-          <div class="callout warning">
-            <strong>Important:</strong> After installing MariaDB, run <code
-              style="background: rgba(0,0,0,0.1); padding: 2px 4px;">sudo mariadb_secure_installation</code> to secure
-            your database.
-          </div>
-
-          <div class="screenshot-section">
-            <h4>Screenshot: MySQL Installation Complete</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show completion message
-              confirming all packages installed successfully.</p>
-            <img src="screenshots/Screenshot 2026-04-01 114943.png" alt="System Verification Terminal"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
           </div>
         </div>
       </section>
 
       <!-- Web Server Configuration -->
       <section class="proj-section" id="webserver">
-        <h2 class="section-title">Configure Apache Web Server</h2>
-        <p class="section-intro">
-          Create an Apache virtual host for osTicket and enable required modules for proper functionality.
-        </p>
+        <div class="content-block">
+          <h2 class="section-title">Configure Apache Web Server</h2>
+          <p class="section-intro">
+            Create an Apache virtual host for osTicket and enable required modules for proper functionality.
+          </p>
 
-        <div class="step-group">
-          <div class="step-header">
-            <div class="step-num">4</div>
-            <div class="step-header-text">
-              <h3>Create Virtual Host & Enable Modules</h3>
-              <p>Set up Apache configuration for osTicket</p>
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">4</div>
+              <div class="step-header-text">
+                <h3>Create Virtual Host & Enable Modules</h3>
+                <p>Set up Apache configuration for osTicket</p>
+              </div>
             </div>
-          </div>
 
-          <div class="content-block">
-            <h4>Create Virtual Host Configuration</h4>
-            <p>Create a new Apache configuration file:</p>
-            <div class="code-block">
-              <code>sudo nano /etc/apache2/sites-available/osticket.conf</code>
+            <div class="content-block">
+              <h4>Create Virtual Host Configuration</h4>
+              <p>Create a new Apache configuration file:</p>
+              <div class="code-block">
+                <code>sudo nano /etc/apache2/sites-available/osticket.conf</code>
+              </div>
             </div>
-          </div>
 
-          <div class="content-block">
-            <h4>Enable Modules and Virtual Host</h4>
-            <p>Enable mod_rewrite and activate the site:</p>
-            <div class="code-block">
-              <code>sudo a2enmod rewrite<br/>sudo a2ensite osticket.conf<br/>sudo apache2ctl configtest<br/>sudo systemctl restart apache2</code>
+            <div class="content-block">
+              <h4>Enable Modules and Virtual Host</h4>
+              <p>Enable mod_rewrite and activate the site:</p>
+              <div class="code-block">
+                <code>sudo a2enmod rewrite<br/>sudo a2ensite osticket.conf<br/>sudo apache2ctl configtest<br/>sudo systemctl restart apache2</code>
+              </div>
             </div>
-          </div>
 
-          <div class="screenshot-section">
-            <h4>Screenshot: Apache Configuration Complete</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show terminal with "Syntax OK"
-              message and modules enabled.</p>
+            <div class="screenshot-section">
+              <h4>Screenshot: Apache Configuration Complete</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show terminal with "Syntax
+                OK"
+                message and modules enabled.</p>
 
-            <img src="screenshots/Screenshot 2026-04-01 192725.png" alt="System Verification Terminal"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
+              <img src="screenshots/Screenshot 2026-04-01 192725.png" alt="System Verification Terminal"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
           </div>
         </div>
       </section>
 
       <!-- Database Setup -->
       <section class="proj-section" id="database">
-        <h2 class="section-title">Setup MySQL Database</h2>
-        <p class="section-intro">
-          Create a dedicated MySQL database and user account for osTicket with appropriate privileges.
-        </p>
+        <div class="content-block">
+          <h2 class="section-title">Setup MySQL Database</h2>
+          <p class="section-intro">
+            Create a dedicated MySQL database and user account for osTicket with appropriate privileges.
+          </p>
 
-        <div class="step-group">
-          <div class="step-header">
-            <div class="step-num">5</div>
-            <div class="step-header-text">
-              <h3>Create Database & User Account</h3>
-              <p>Set up MySQL authentication and database</p>
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">5</div>
+              <div class="step-header-text">
+                <h3>Create Database & User Account</h3>
+                <p>Set up MySQL authentication and database</p>
+              </div>
             </div>
-          </div>
 
-          <div class="content-block">
-            <h4>Access MySQL and Execute Commands</h4>
-            <p>Log in as root and create the database:</p>
-            <div class="code-block">
-              <code>sudo mysql -u root -p<br/><br/>CREATE DATABASE osticket;<br/>CREATE USER 'osticket'@'localhost' IDENTIFIED BY 'securepassword123';<br/>GRANT ALL PRIVILEGES ON osticket.* TO 'osticket'@'localhost';<br/>FLUSH PRIVILEGES;<br/>EXIT;</code>
+            <div class="content-block">
+              <h4>Access MySQL and Execute Commands</h4>
+              <p>Log in as root and create the database:</p>
+              <div class="code-block">
+                <code>sudo mysql -u root -p<br/><br/>CREATE DATABASE osticket;<br/>CREATE USER 'osticket'@'localhost' IDENTIFIED BY 'securepassword123';<br/>GRANT ALL PRIVILEGES ON osticket.* TO 'osticket'@'localhost';<br/>FLUSH PRIVILEGES;<br/>EXIT;</code>
+              </div>
             </div>
-          </div>
 
-          <div class="callout warning">
-            <strong>Security:</strong> Use a strong, unique password instead of 'securepassword123'. Store it securely
-            for the installation wizard.
-          </div>
+            <div class="callout warning">
+              <strong>Security:</strong> Use a strong, unique password instead of 'securepassword123'. Store it securely
+              for the installation wizard.
+            </div>
 
-          <div class="screenshot-section">
-            <h4>Screenshot: MySQL Database Created</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show MySQL prompt with
-              database and user creation commands executed.</p>
+            <div class="screenshot-section">
+              <h4>Screenshot: MySQL Database Created</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show MySQL prompt with
+                database and user creation commands executed.</p>
 
-            <img src="screenshots/Screenshot 2026-04-01 193216.png" alt="System Verification Terminal"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
+              <img src="screenshots/Screenshot 2026-04-01 193216.png" alt="System Verification Terminal"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
           </div>
         </div>
       </section>
@@ -1061,204 +1176,211 @@
 
       <!-- osTicket Deployment -->
       <section class="proj-section" id="osticket">
-        <h2 class="section-title">Deploy osTicket Application</h2>
-        <p class="section-intro">
-          Download the osTicket application, extract it to the web root, and configure file permissions.
-        </p>
+        <div class="content-block">
+          <h2 class="section-title">Deploy osTicket Application</h2>
+          <p class="section-intro">
+            Download the osTicket application, extract it to the web root, and configure file permissions.
+          </p>
 
-        <div class="step-group">
-          <div class="step-header">
-            <div class="step-num">6</div>
-            <div class="step-header-text">
-              <h3>Download & Extract osTicket</h3>
-              <p>Deploy application files and set permissions</p>
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">6</div>
+              <div class="step-header-text">
+                <h3>Download & Extract osTicket</h3>
+                <p>Deploy application files and set permissions</p>
+              </div>
             </div>
-          </div>
 
-          <div class="content-block">
-            <h4>Download osTicket Release</h4>
-            <p>Download and extract the latest stable version:</p>
-            <div class="code-block">
-              <code>cd /var/www/html/<br/>sudo wget "https://s3.amazonaws.com/...<br/>sudo unzip osTicket-v1.16.0.zip<br/>sudo rm osTicket-v1.16.0.zip</code>
+            <div class="content-block">
+              <h4>Download osTicket Release</h4>
+              <p>Download and extract the latest stable version:</p>
+              <div class="code-block">
+                <code>cd /var/www/html/<br/>sudo wget "https://s3.amazonaws.com/...<br/>sudo unzip osTicket-v1.16.0.zip<br/>sudo rm osTicket-v1.16.0.zip</code>
+              </div>
             </div>
-          </div>
 
-          <div class="content-block">
-            <h4>Set File Permissions & Ownership</h4>
-            <p>Configure proper permissions for the web server:</p>
-            <div class="code-block">
-              <code>sudo chown -R www-data:www-data /var/www/html/osTicket<br/>sudo chmod -R 755 /var/www/html/osTicket/upload<br/>sudo chmod 777 /var/www/osticket/upload/include</code>
+            <div class="content-block">
+              <h4>Set File Permissions & Ownership</h4>
+              <p>Configure proper permissions for the web server:</p>
+              <div class="code-block">
+                <code>sudo chown -R www-data:www-data /var/www/html/osTicket<br/>sudo chmod -R 755 /var/www/html/osTicket/upload<br/>sudo chmod 777 /var/www/osticket/upload/include</code>
+              </div>
             </div>
-          </div>
 
-          <div class="screenshot-section">
-            <h4>Screenshot: osTicket Files Extracted</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show the directory listing
-              with all osTicket files extracted.</p>
+            <div class="screenshot-section">
+              <h4>Screenshot: osTicket Files Extracted</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show the directory listing
+                with all osTicket files extracted.</p>
 
-            <img src="screenshots/Screenshot 2026-04-01 203625.png" alt="System Verification Terminal"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
+              <img src="screenshots/Screenshot 2026-04-01 203625.png" alt="System Verification Terminal"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
           </div>
         </div>
       </section>
 
       <!-- Installation Wizard -->
       <section class="proj-section" id="wizard">
-        <h2 class="section-title">Complete Web Installation Wizard</h2>
-        <p class="section-intro">
-          Launch the browser-based installer to configure osTicket. Follow the wizard through system checks, database
-          setup, and admin account creation.
-        </p>
+        <div class="content-block">
+          <h2 class="section-title">Complete Web Installation Wizard</h2>
+          <p class="section-intro">
+            Launch the browser-based installer to configure osTicket. Follow the wizard through system checks, database
+            setup, and admin account creation.
+          </p>
 
-        <div class="step-group">
-          <div class="step-header">
-            <div class="step-num">7</div>
-            <div class="step-header-text">
-              <h3>Launch Installation Wizard</h3>
-              <p>Access the web-based setup interface</p>
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">7</div>
+              <div class="step-header-text">
+                <h3>Launch Installation Wizard</h3>
+                <p>Access the web-based setup interface</p>
+              </div>
             </div>
-          </div>
 
-          <div class="content-block">
-            <h4>Open Installation Page</h4>
-            <p>In your browser, navigate to:</p>
-            <div class="code-block">
-              <code>http://localhost/osTicket/setup/install.php</code>
+            <div class="content-block">
+              <h4>Open Installation Page</h4>
+              <p>In your browser, navigate to:</p>
+              <div class="code-block">
+                <code>http://localhost/osTicket/setup/install.php</code>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.8rem;">write
+                your server's IP or domain.</p>
             </div>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.8rem;">write
-              your server's IP or domain.</p>
-          </div>
 
-          <div class="screenshot-section">
-            <h4>Screenshot: System Check Page</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show the initial system
-              compatibility check with all requirements.</p>
+            <div class="screenshot-section">
+              <h4>Screenshot: System Check Page</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show the initial system
+                compatibility check with all requirements.</p>
 
-            <img src="screenshots/Screenshot 2026-04-02 102308.png" alt="System Verification Terminal"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-          </div>
+              <img src="screenshots/Screenshot 2026-04-02 102308.png" alt="System Verification Terminal"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
 
-          <div class="screenshot-section">
-            <h4>Screenshot: Database Configuration Form</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show the database setup form.
-            </p>
+            <div class="screenshot-section">
+              <h4>Screenshot: Database Configuration Form</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show the database setup
+                form.
+              </p>
 
-            <img src="screenshots/Screenshot 2026-04-02 103007.png" alt="System Verification Terminal"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-          </div>
+              <img src="screenshots/Screenshot 2026-04-02 103007.png" alt="System Verification Terminal"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
 
-          <div class="screenshot-section">
-            <h4>Screenshot: Admin Account Setup Created Successfully</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show the admin user creation
-              congratulations message.</p>
+            <div class="screenshot-section">
+              <h4>Screenshot: Admin Account Setup Created Successfully</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show the admin user creation
+                congratulations message.</p>
 
-            <img src="screenshots/Screenshot 2026-04-02 103644.png" alt="System Verification Terminal"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
+              <img src="screenshots/Screenshot 2026-04-02 103644.png" alt="System Verification Terminal"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
           </div>
         </div>
       </section>
 
       <!-- Verification & Security -->
       <section class="proj-section" id="verification">
-        <h2 class="section-title">Verify Installation & Secure</h2>
-        <p class="section-intro">
-          Complete final security hardening and verify that osTicket is fully functional.
-        </p>
+        <div class="content-block">
+          <h2 class="section-title">Verify Installation & Secure</h2>
+          <p class="section-intro">
+            Complete final security hardening and verify that osTicket is fully functional.
+          </p>
 
-        <div class="step-group">
-          <div class="step-header">
-            <div class="step-num">8</div>
-            <div class="step-header-text">
-              <h3>Post-Installation Security Hardening</h3>
-              <p>Remove installation files and lock down permissions</p>
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">8</div>
+              <div class="step-header-text">
+                <h3>Post-Installation Security Hardening</h3>
+                <p>Remove installation files and lock down permissions</p>
+              </div>
+            </div>
+
+            <div class="content-block">
+              <h4>Remove Setup Directory</h4>
+              <p>Delete the installer to prevent unauthorized access:</p>
+              <div class="code-block">
+                <code>sudo rm -rf /var/www/html/osTicket/setup</code>
+              </div>
+            </div>
+
+            <div class="content-block">
+              <h4>Restrict File Permissions</h4>
+              <p>Lock down the configuration directory:</p>
+              <div class="code-block">
+                <code>sudo chmod 755 /var/www/html/osTicket/include</code>
+              </div>
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Screenshot: Security Configuration Applied</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show terminal with chmod
+                commands and setup directory removal.</p>
+
+              <img src="screenshots/Screenshot 2026-04-02 104514.png" alt="System Verification Terminal"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
             </div>
           </div>
 
-          <div class="content-block">
-            <h4>Remove Setup Directory</h4>
-            <p>Delete the installer to prevent unauthorized access:</p>
-            <div class="code-block">
-              <code>sudo rm -rf /var/www/html/osTicket/setup</code>
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">9</div>
+              <div class="step-header-text">
+                <h3>Verify Installation Complete</h3>
+                <p>Test both admin and client interfaces</p>
+              </div>
+            </div>
+
+            <div class="content-block">
+              <h4>Access Admin Panel</h4>
+              <p>Log in to verify the admin dashboard:</p>
+              <div class="code-block">
+                <code>http://localhost/osTicket/admin</code>
+              </div>
+            </div>
+
+            <div class="content-block">
+              <h4>Access Client Portal</h4>
+              <p>Test the client-facing ticket submission interface:</p>
+              <div class="code-block">
+                <code>http://localhost/osTicket/</code>
+              </div>
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Screenshot: Admin Dashboard</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show the admin panel
+                dashboard
+                after successful login.</p>
+
+              <img src="screenshots/Screenshot 2026-04-02 105107.png" alt="System Verification Terminal"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Screenshot: Client Portal</h4>
+
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show the ticket submission
+                form on the client side.</p>
+
+              <img src="screenshots/Screenshot 2026-04-02 105143.png" alt="System Verification Terminal"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
             </div>
           </div>
 
-          <div class="content-block">
-            <h4>Restrict File Permissions</h4>
-            <p>Lock down the configuration directory:</p>
-            <div class="code-block">
-              <code>sudo chmod 755 /var/www/html/osTicket/include</code>
-            </div>
+          <div class="callout info">
+            <strong>Success!</strong> osTicket is now fully installed and ready for configuration. The next step is to
+            set up departments, SLA policies, and automation rules.
           </div>
-
-          <div class="screenshot-section">
-            <h4>Screenshot: Security Configuration Applied</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show terminal with chmod
-              commands and setup directory removal.</p>
-
-            <img src="screenshots/Screenshot 2026-04-02 104514.png" alt="System Verification Terminal"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
+          <div style="margin-top: 2rem; text-align: center;">
+            <a href="osticket-configuration.html" class="next-btn">
+              Configuration Page →
+            </a>
           </div>
         </div>
+      </section>
 
-        <div class="step-group">
-          <div class="step-header">
-            <div class="step-num">9</div>
-            <div class="step-header-text">
-              <h3>Verify Installation Complete</h3>
-              <p>Test both admin and client interfaces</p>
-            </div>
-          </div>
-
-          <div class="content-block">
-            <h4>Access Admin Panel</h4>
-            <p>Log in to verify the admin dashboard:</p>
-            <div class="code-block">
-              <code>http://localhost/osTicket/admin</code>
-            </div>
-          </div>
-
-          <div class="content-block">
-            <h4>Access Client Portal</h4>
-            <p>Test the client-facing ticket submission interface:</p>
-            <div class="code-block">
-              <code>http://localhost/osTicket/</code>
-            </div>
-          </div>
-
-          <div class="screenshot-section">
-            <h4>Screenshot: Admin Dashboard</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show the admin panel dashboard
-              after successful login.</p>
-
-            <img src="screenshots/Screenshot 2026-04-02 105107.png" alt="System Verification Terminal"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-
-          </div>
-
-          <div class="screenshot-section">
-            <h4>Screenshot: Client Portal</h4>
-
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Show the ticket submission
-              form on the client side.</p>
-
-            <img src="screenshots/Screenshot 2026-04-02 105143.png" alt="System Verification Terminal"
-              style="width:100%; border:1px solid var(--border); border-radius:8px;">
-          </div>
-        </div>
-
-        <div class="callout info">
-          <strong>Success!</strong> osTicket is now fully installed and ready for configuration. The next step is to
-          set up departments, SLA policies, and automation rules.
-        </div>
-        <div style="margin-top: 2rem; text-align: center;">
-          <a href="osticket-configuration.html" class="next-btn">
-            Configuration Page →
-          </a>
-        </div>
-  </div>
-  </section>
-
-  </main>
+    </main>
   </div>
 
   <!-- Footer -->

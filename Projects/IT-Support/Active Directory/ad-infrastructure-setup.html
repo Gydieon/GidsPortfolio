@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Active Directory Infrastructure Setup — Gideon Enejo</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="botantech.css" />
+  <style>
+    .youtube-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .youtube-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 18px;
+      background: #006b2d;
+      /* darker green */
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: 0.2s ease;
+    }
+
+    .youtube-btn:hover {
+      background: #005424;
+      /* even darker on hover */
+    }
+
+    .youtube-icon {
+      font-size: 14px;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      /* ensures it stays above other content */
+      background: var(--white);
+      /* keeps background consistent when scrolling */
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+    }
+
+    .video-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .video-thumbnail {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+
+    .video-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .video-link:hover .play-button {
+      background: var(--green);
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    /* optional subtle shadow */
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      padding: 1.2rem 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+
+    .breadcrumb a {
+      color: var(--green);
+      transition: opacity .2s;
+    }
+
+    .breadcrumb a:hover {
+      opacity: 0.7;
+    }
+
+    .breadcrumb-sep {
+      opacity: 0.4;
+    }
+
+    /* ── HERO ── */
+    /* ── HERO BLOCK ── */
+    .proj-hero {
+      background: linear-gradient(135deg, var(--green) 0%, #0f3320 100%);
+      padding: 4rem 5% 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proj-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234ade80' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .proj-hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .proj-type-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(74, 222, 128, 0.15);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      color: #4ade80;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.35rem 0.9rem;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+    }
+
+    .proj-hero h1 {
+      color: #fff;
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 1rem;
+      line-height: 1.15;
+    }
+
+    .proj-hero-desc {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      max-width: 620px;
+      margin-bottom: 2.5rem;
+    }
+
+    .proj-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .proj-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .proj-meta-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .proj-meta-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* Hero botanical SVG */
+    .hero-leaf-r {
+      position: absolute;
+      right: -80px;
+      top: -40px;
+      width: 450px;
+      height: auto;
+      pointer-events: none;
+      opacity: 0.12;
+      z-index: 0;
+    }
+
+    /* ── SIDEBAR NAV ── */
+    .proj-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 5%;
+    }
+
+    .proj-sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+
+    .sidebar-nav {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .sidebar-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--white);
+    }
+
+    .sidebar-links {
+      list-style: none;
+    }
+
+    .sidebar-links a {
+      display: block;
+      padding: 0.8rem 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-left: 3px solid transparent;
+      transition: all 0.2s;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-links a:last-child {
+      border-bottom: none;
+    }
+
+    .sidebar-links a:hover,
+    .sidebar-links a.active {
+      color: var(--green);
+      background: var(--green-light);
+      border-left-color: var(--green);
+    }
+
+    /* ── SCREENSHOT SECTION ── */
+    .screenshot-section {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .screenshot-section h4 {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 0.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .screenshot-section h4::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 14px;
+      background: var(--green-accent);
+      border-radius: 2px;
+    }
+
+    .screenshot-placeholder-large {
+      background: linear-gradient(135deg, var(--off-white) 0%, #f9f9f9 100%);
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 3rem 2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      min-height: 280px;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: var(--text-muted);
+    }
+
+    .screenshot-placeholder-large:hover {
+      background: linear-gradient(135deg, #f9f9f9 0%, var(--off-white) 100%);
+      border-color: var(--green-accent);
+      color: var(--green);
+    }
+
+    .screenshot-placeholder-large svg {
+      color: currentColor;
+    }
+
+    .screenshot-placeholder-large p {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .placeholder-hint {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 0.5rem;
+    }
+
+
+    /* ── VIDEO HERO SECTION (UPDATED) ── */
+    .video-hero-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 5%;
+      /* reduced from 4rem */
+    }
+
+    .video-hero-title {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .video-hero-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+
+    /* 🔥 MAIN FIX: control overall size */
+    .video-container-wrapper {
+      max-width: 600px;
+      /* ⬅️ THIS reduces width */
+      margin: 0 auto;
+      /* center it */
+      background: #0a0f0d;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    /* keeps it responsive but not too big */
+    .video-placeholder-hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      aspect-ratio: 16/9;
+      /* keep video ratio */
+      background: linear-gradient(135deg, #0a1a0f 0%, #0f2e1c 100%);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    /* slightly softer hover */
+    .video-placeholder-hero:hover {
+      background: linear-gradient(135deg, #0f2e1c 0%, #143d2b 100%);
+    }
+
+    .play-icon-hero {
+      width: 60px;
+      /* reduced from 80px */
+      height: 60px;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+      transition: transform 0.3s;
+    }
+
+    .video-placeholder-hero:hover .play-icon-hero {
+      transform: scale(1.1);
+    }
+
+    .video-label-hero {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 600;
+      text-align: center;
+      max-width: 300px;
+    }
+
+    .video-duration-hero {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* INFO BAR - slightly tighter */
+    .video-info-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      background: var(--off-white);
+      border-top: 1px solid var(--border);
+    }
+
+    .video-info-item {
+      padding: 1rem;
+      border-right: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .video-info-item:last-child {
+      border-right: none;
+    }
+
+    .video-info-icon {
+      font-size: 1.2rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .video-info-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .video-info-value {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ── MAIN CONTENT ── */
+    .proj-main {
+      position: relative;
+    }
+
+    .proj-section {
+      margin-bottom: 5rem;
+      scroll-margin-top: 80px;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .section-intro {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      max-width: 680px;
+    }
+
+    /* ── STEP CARDS ── */
+    .step-group {
+      margin-bottom: 2.5rem;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding: 1.2rem;
+      background: var(--green-light);
+      border-left: 4px solid var(--green);
+      border-radius: var(--radius);
+    }
+
+    .step-num {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--green);
+      min-width: 50px;
+    }
+
+    .step-header-text h3 {
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 0.2rem 0;
+    }
+
+    .step-header-text p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* ── CONTENT BLOCK ── */
+    .content-block {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .content-block h4 {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .content-block h4::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 14px;
+      background: var(--green-accent);
+      border-radius: 2px;
+    }
+
+    .content-block p {
+      margin: 0 0 0.8rem 0;
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .content-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ── TABLE STYLE ── */
+    .config-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.85rem;
+    }
+
+    .config-table th {
+      background: var(--green-light);
+      border: 1px solid var(--border);
+      padding: 0.8rem;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .config-table td {
+      border: 1px solid var(--border);
+      padding: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .config-table tr:nth-child(even) {
+      background: var(--off-white);
+    }
+
+    /* ── SCREENSHOT GALLERY ── */
+    .screenshot-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .screenshot-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--white);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .screenshot-item:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+
+    .screenshot-placeholder {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, var(--green-light) 0%, var(--off-white) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: var(--green-accent);
+    }
+
+    .screenshot-caption {
+      padding: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── CALLOUT BOX ── */
+    .callout {
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      margin: 2rem 0;
+      border-left: 4px solid var(--green-accent);
+      background: var(--green-light);
+    }
+
+    .callout.warning {
+      border-left-color: #f59e0b;
+      background: #fef3c7;
+    }
+
+    .callout.info {
+      border-left-color: #3b82f6;
+      background: #eff6ff;
+    }
+
+    .callout strong {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--green);
+      margin-bottom: 0.5rem;
+    }
+
+    .callout.warning strong {
+      color: #92400e;
+    }
+
+    .callout.info strong {
+      color: #1e40af;
+    }
+
+    .callout p {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* ── CHECKLIST ── */
+    .checklist {
+      list-style: none;
+      margin: 1.5rem 0;
+    }
+
+    .checklist li {
+      padding: 0.6rem 0 0.6rem 2rem;
+      position: relative;
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .checklist li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .next-btn {
+      background-color: #1f5d3b;
+      color: #fff;
+      padding: 12px 26px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 8px;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .next-btn:hover {
+      background-color: #17492e;
+      transform: translateX(4px);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .proj-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .proj-sidebar {
+        position: relative;
+        top: 0;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .proj-hero {
+        padding: 2.5rem 1.5rem 3rem;
+      }
+
+      .content-block {
+        padding: 1.5rem 1rem;
+      }
+
+      .step-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .config-table {
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Botanical corners -->
+  <div class="bt-corner bt-corner-tl">
+    <svg width="150" height="180" viewBox="0 0 150 180" fill="none">
+      <path d="M8 175 Q22 130 12 88 Q6 55 30 18" stroke="#4ade80" stroke-width="1.5" fill="none"
+        stroke-linecap="round" />
+      <circle cx="12" cy="88" r="3" fill="none" stroke="#4ade80" stroke-width="1" />
+      <circle cx="12" cy="88" r="1.2" fill="#4ade80" />
+      <path d="M12 88 Q45 68 56 38" stroke="#4ade80" stroke-width="1" fill="none" />
+      <path d="M33 60 Q47 46 56 38 Q43 41 34 54 Q27 61 33 60Z" fill="#22c55e" opacity="0.5" />
+      <line x1="42" y1="51" x2="49" y2="45" stroke="#4ade80" stroke-width="0.5" opacity="0.7" />
+      <path d="M12 88 Q-8 72 -2 48" stroke="#4ade80" stroke-width="1" fill="none" />
+      <path d="M2 62 Q0 50 -2 48 Q-4 57 2 64 Q4 67 2 62Z" fill="#22c55e" opacity="0.4" />
+      <path d="M30 18 Q34 9 38 7 Q36 14 30 18Z" fill="#4ade80" opacity="0.65" />
+      <circle cx="30" cy="17" r="2.5" fill="#4ade80" opacity="0.8" />
+      <circle cx="30" cy="17" r="6" fill="#4ade80" opacity="0.12" />
+    </svg>
+  </div>
+
+  <div class="bt-corner bt-corner-tr" style="opacity:0.35">
+    <svg width="160" height="200" viewBox="0 0 160 200" fill="none">
+      <path d="M152 195 Q128 148 142 100 Q152 62 124 20" stroke="#22d3a0" stroke-width="1.5" fill="none" />
+      <circle cx="142" cy="100" r="3" fill="none" stroke="#22d3a0" stroke-width="1" />
+      <circle cx="142" cy="100" r="1.2" fill="#22d3a0" />
+      <path d="M142 100 Q110 80 98 48" stroke="#22d3a0" stroke-width="1" fill="none" />
+      <path d="M118 70 Q106 57 98 48 Q112 52 120 66 Q126 75 118 70Z" fill="#10b981" opacity="0.45" />
+    </svg>
+  </div>
+
+  <div class="bt-particles" id="bt-particles"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="../../../index.html" class="nav-logo">Gideon Enejo</a>
+    <ul class="nav-links">
+      <li><a href="../../../index.html" class="hide-sm">Home</a></li>
+      <li><a href="../../../about.html">About</a></li>
+      <li><a href="../../../experience.html">Experience</a></li>
+      <li><a href="../../../skills.html" class="hide-sm">Skills</a></li>
+      <li><a href="../../../projects.html" class="active">Projects</a></li>
+      <li><a href="../../../contact.html">Contact</a></li>
+      <li><a href="#" download class="nav-cv">Download CV</a></li>
+    </ul>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="../../projects.html">Projects</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="Helpdesk-ticketing-system.html">Helpdesk Ticketing Systems</a>
+    <span class="breadcrumb-sep">›</span>
+    <a href="Active-Directrory-Management.html">Active Directory Management</a>
+    <span class="breadcrumb-sep">›</span>
+    <span>Infrastructure Setup</span>
+  </div>
+
+  <!-- Hero -->
+
+  <div class="proj-hero">
+    <svg class="hero-leaf-r" viewBox="0 0 320 400" fill="none">
+      <path d="M320 0 Q240 100 280 200 Q310 280 250 350 Q200 400 140 380" stroke="#4ade80" stroke-width="2"
+        fill="none" />
+      <path d="M275 120 Q315 100 320 70 Q295 98 275 120Z" fill="#22c55e" />
+      <path d="M280 200 Q315 185 318 155 Q290 182 280 200Z" fill="#22c55e" opacity="0.7" />
+      <circle cx="280" cy="200" r="5" fill="#4ade80" opacity="0.5" />
+      <circle cx="280" cy="200" r="14" fill="#4ade80" opacity="0.07" />
+    </svg>
+    <div class="proj-hero-inner">
+      <div class="proj-type-badge">
+        <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+          <circle cx="4" cy="4" r="4" fill="#4ade80" />
+        </svg>
+        IT Support · Helpdesk
+      </div>
+      <h1>Active Directory Setup (Build The Domain)</h1>
+      <p class="proj-hero-desc">
+        A complete guide demonstrating how to set up and manage an Active Directory infrastructure for enterprise
+        environments. This
+        covers domain controller configuration, user and group management, policy implementation, and security best
+        practices.
+      </p>
+
+    </div>
+  </div>
+
+
+  <!-- VIDEO HERO SECTION (FULL WIDTH, PROMINENT) -->
+  <section class="video-hero-section">
+
+    <h2 class="video-hero-title">Watch Complete Active Directory Setup</h2>
+
+    <p class="video-hero-subtitle">
+      Prefer a quick overview? This section demonstrates the complete Active Directory installation process, including
+      setting up Windows Server, configuring a static IP, installing the Active Directory Domain Services (AD DS) role,
+      and promoting the server to a Domain Controller. For a more detailed step-by-step breakdown with configuration
+      details and supporting screenshots, please refer to the guide below.
+    </p>
+
+    <div class="youtube-wrapper">
+      <a href="#" target="_blank" class="youtube-btn">
+        <span class="youtube-icon">▶</span>
+        Watch Full Infrastructure Video
+      </a>
+    </div>
+
+
+    </div>
+  </section>
+
+
+
+  <!-- Main Content -->
+  <div class="proj-layout">
+
+    <!-- Sidebar Navigation -->
+    <aside class="proj-sidebar">
+      <div class="sidebar-nav">
+        <div class="sidebar-title">Active directory setup</div>
+        <ul class="sidebar-links">
+          <li><a href="#create-vms" class="active">Create Virtual Machines</a></li>
+          <li><a href="#set-static-ip">Set Static IP Address</a></li>
+          <li><a href="#rename-server">Rename the Server</a></li>
+          <li><a href="#install-ad-ds-role">Install AD DS Role</a></li>
+          <li><a href="#promote-to-domain-controller">Promote to Domain Controller</a></li>
+          <li><a href="#join-domain">Set up Client Machine (JOIN DOMAIN)</a></li>
+        </ul>
+      </div>
+    </aside>
+
+
+
+    <!-- Main Content -->
+    <main class="proj-main">
+
+      <!-- Create VM Overview -->
+      <section class="proj-section" id="create-vms">
+        <h2 class="section-title">Create Virtual Machines</h2>
+        <p class="section-intro">
+          Create two virtual machines to simulate an enterprise Active Directory environment: a Windows Server VM
+          as the Domain Controller and a Windows 10/11 client VM as a workstation. Both are configured with
+          appropriate resources and basic settings to prepare for domain setup and integration.
+        </p>
+
+        <div class="step-group">
+          <div class="step-header">
+            <div class="step-num">1</div>
+            <div class="step-header-text">
+              <h3>VMs Setup</h3>
+              <p>Configure the virtual machines with appropriate resources and basic settings.</p>
+            </div>
+          </div>
+
+          <div class="content-block">
+            <h4>Virtual Machines Setup</h4>
+            <p>This project uses two virtual machines to simulate a real enterprise environment:</p>
+
+            <table class="config-table">
+              <thead>
+                <tr>
+                  <th>Virtual Machine</th>
+                  <th>Purpose</th>
+                  <th>Basic Resources</th>
+                  <th>Key Configuration</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td><strong>(Windows Server)</strong></td>
+                  <td>Acts as the Domain Controller that manages the entire network environment.</td>
+                  <td>
+                    2–4 GB RAM<br>
+                    2 CPU cores<br>
+                    40–60 GB storage
+                  </td>
+                  <td>
+                    • Static IP configuration<br>
+                    • Active Directory Domain Services (AD DS)<br>
+                    • DNS Server role<br>
+                    • Domain creation (company.local)
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><strong>(Windows Client)</strong></td>
+                  <td>Client machine used to simulate a real user joining the company domain.</td>
+                  <td>
+                    2–4 GB RAM<br>
+                    2 CPU cores<br>
+                    30–50 GB storage
+                  </td>
+                  <td>
+                    • DNS pointed to the Domain Controller<br>
+                    • Domain join (company.local)<br>
+                    • User login via domain credentials<br>
+                    • Used for testing policies and access control
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-block">
+            <h4>Virtual Machine Setup Steps (Windows Server 2022 & Windows 11)</h4>
+            <p>In the process of setting up the Vms in the VirtualBox, the following resources and configurations were
+              defined to support the Active Directory environment:</p>
+            <div class="content-block">
+              <h4>Windows Server 2022 VM Setup</h4>
+
+
+              <ul class="checklist">
+                <li>Operating System: Windows Server 2022</li>
+                <li>RAM: 2 GB</li>
+                <li>CPU Allocation: 2 Cores</li>
+                <li>Storage: 30 GB Virtual Disk</li>
+                <li>Prepared for Active Directory Domain Services (AD DS) installation</li>
+              </ul>
+            </div>
+            <div class="content-block">
+              <h4>Windows 11 VM Setup</h4>
+              <ul class="checklist">
+                <li>Operating System: Windows 11</li>
+                <li>RAM: 2 GB</li>
+                <li>CPU Allocation: 2 Cores</li>
+                <li>Storage: 30 GB Virtual Disk</li>
+                <li>Prepared for domain joining to company.local</li>
+              </ul>
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Screenshot: Virtual Machines Setup in VirtualBox</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Overview of the VirtualBox Manager showing all required virtual machines already created and configured
+                for the Active Directory lab environment.
+              </p>
+
+              <img src="AD-Screenshots/AD1.png" alt="VirtualBox VM Setup"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+            <div class="content-block">
+              <h4>Network Configuration (NAT Network)</h4>
+              <p>
+                The virtual machines were configured using a NAT Network in VirtualBox to simulate a real-world
+                enterprise
+                environment. This setup allowed both internal communication between the Domain Controller and the
+                client machine, while still providing internet access for updates and system configuration.
+              </p>
+
+              <ul class="checklist">
+                <li>Enabled communication between multiple virtual machines within the same network</li>
+                <li>Provided internet access for system updates and package downloads</li>
+                <li>Simulated a real enterprise network environment for Active Directory deployment</li>
+              </ul>
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Screenshot: NAT Network Creation in VirtualBox (AD-Network)</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Display of the VirtualBox Network Manager showing the creation and configuration of a NAT Network. This
+                serves as the foundation for communication between the Domain Controller and the client machine.
+              </p>
+
+              <img src="AD-Screenshots/AD2.png" alt="NAT Network Creation"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+            <div class="content-block">
+              <h4>NAT Network IP Prefix Explanation</h4>
+              <p>
+                The IP prefix (e.g., 10.0.2.0/24) defines the network range used by the virtual machines within the
+                NAT Network.
+                It determines how IP addresses are assigned and ensures all systems are part of the same subnet,
+                enabling proper
+                communication between the Domain Controller and client machines.
+              </p>
+
+              <ul class="checklist">
+                <li>The network address (10.0.2.0) identifies the overall network</li>
+                <li>The “/24” subnet allows up to 254 usable IP addresses</li>
+                <li>Ensures all virtual machines can communicate within the same network</li>
+                <li>Supports proper DNS resolution and domain functionality in Active Directory</li>
+              </ul>
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Screenshot: Windows Server 2022 Network Configuration</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Configuration of network adapter settings inside the Windows Server 2022 virtual machine, ensuring it is
+                connected to the NAT Network and properly assigned for Active Directory setup.
+              </p>
+
+              <img src="AD-Screenshots/AD3.png" alt="DC01 Network Config"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Screenshot: Windows 11 Client Network Configuration</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Configuration of network settings inside the Windows 11 client machine, ensuring it is connected to the
+                same NAT Network as the Domain Controller and prepared for domain joining.
+              </p>
+
+              <img src="AD-Screenshots/AD4.png" alt="Client Network Config"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+      </section>
+
+      <!-- Set Static IP -->
+      <section class="proj-section" id="set-static-ip">
+        <div class="content-block">
+          <h2 class="section-title">Set Static IP Address</h2>
+          <p class="section-intro">
+            This stage ensures the server is configured with a stable and consistent network identity. Setting a static
+            IP
+            address prevents changes that could disrupt communication, ensuring the Domain Controller can always be
+            reliably located by client machines and services within the network.
+          </p>
+
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">2</div>
+              <div class="step-header-text">
+                <h3>Static IP Address</h3>
+                <p>Assign a static IP address to the server for consistent network identification.</p>
+              </div>
+            </div>
+
+            <div class="content-block">
+              <h4>Why Setting a Static IP is Extremely Important</h4>
+              <p>
+                Assigning a static IP address to the Domain Controller is a critical step in building a stable and
+                reliable network.
+                In an Active Directory environment, many core services depend on consistent communication with the
+                server.
+                A static
+                IP ensures that the server can always be located without interruption:
+              </p>
+              <ul class="checklist">
+                <li>It provides a permanent and consistent address for the Domain Controller, preventing connectivity
+                  issues caused by changing IP addresses</li>
+                <li>It ensures DNS services function correctly, allowing clients to reliably locate the domain and
+                  authenticate users</li>
+                <li>It prevents failures in domain-related services such as login, Group Policy application, and
+                  resource
+                  access</li>
+                <li>It guarantees that client machines can always connect to the server using a known and stable address
+                </li>
+                <li>It supports overall network stability, making troubleshooting easier and reducing unexpected
+                  downtime
+                </li>
+              </ul>
+            </div>
+
+            <div class="content-block">
+              <h4>How I Configured to Static IP Address for the Domain Controller</h4>
+              <ul class="checklist">
+                <li>Navigated to Control Panel → Network and Internet → Network Connections</li>
+                <li>Right-clicked on Ethernet and selected Properties</li>
+                <li>Opened Internet Protocol Version 4 (IPv4) settings</li>
+                <li>Selected “Use the following IP address” for manual configuration</li>
+                <li>Assigned IP Address: 10.0.2.5</li>
+                <li>Set Subnet Mask: 255.255.255.0</li>
+                <li>Configured Default Gateway: 10.0.2.1</li>
+                <li>Set Preferred DNS to the server’s IP (127.0.0.1)</li>
+                <li>Applied the configuration and verified using <strong>ipconfig</strong></li>
+              </ul>
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Screenshot: Setting Static IP Address in control panel</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Configuration of the static IP address for the Domain Controller using the Control Panel
+                network settings. This ensures the server has a consistent network identity crucial for Active
+                Directory functionality.
+              </p>
+
+              <img src="AD-Screenshots/AD7.png" alt="Client Network Config"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+
+            <div class="screenshot-section">
+              <h4>Screenshot: IP address shown in command prompt</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                Verification of the static IP address configuration using the ipconfig command in the command prompt.
+              </p>
+
+              <img src="AD-Screenshots/AD8.png" alt="Client Network Config"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Rename the Server -->
+      <section class="proj-section" id="rename-server">
+        <div class="content-block">
+
+
+          <h2 class="section-title">Rename the Server</h2>
+          <p class="section-intro">
+            Renaming the server to a meaningful name (e.g., GY01) is an important step in organizing and managing the
+            Active Directory environment. A clear and descriptive server name helps administrators easily identify the
+            server’s role and purpose within the network, improving overall clarity and efficiency in administration.
+          </p>
+
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">4</div>
+              <div class="step-header-text">
+                <h3>Changing the Server Name</h3>
+                <p>Follow these steps to rename the server:</p>
+              </div>
+            </div>
+
+            <div class="content-block">
+              <h4>Steps to Rename the Server (GY01)</h4>
+              <ul class="checklist">
+                <li>Press <strong>Windows + R</strong>, type <strong>sysdm.cpl</strong>, and press Enter</li>
+                <li>Navigate to the <strong>Computer Name</strong> tab in the System Properties window</li>
+                <li>Click the <strong>Change</strong> button to modify the computer name</li>
+                <li>Enter the new server name as <strong>GY01</strong></li>
+                <li>Click <strong>OK</strong> to confirm the changes</li>
+                <li>When prompted, click <strong>Restart Now</strong> to apply the new name</li>
+                <li>After reboot, open Command Prompt and run <strong>hostname</strong> to verify the change</li>
+              </ul>
+            </div>
+
+            <div class="screenshot-section">
+              <h4>Screenshot: Terminal Showing New Server Name</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                After renaming the server and rebooting, the Command Prompt displays the new hostname (GY01),
+                confirming that the server has been successfully renamed.
+              </p>
+              <img src="AD-Screenshots/AD10.png" alt="Admin Dashboard"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+            <div class="content-block">
+              <h4>Why Renaming the Server is Important</h4>
+              <ul class="checklist">
+                <li>Ensures the server has a clear and professional identity within the network</li>
+                <li>The server name becomes part of Active Directory and DNS records</li>
+                <li>Helps administrators easily identify the server’s role (e.g., Domain Controller)</li>
+                <li>Prevents complications that can occur if renaming is done after Active Directory installation</li>
+                <li>Aligns with real-world IT naming conventions used in enterprise environments</li>
+                <li>Improves organization and management as the network grows</li>
+              </ul>
+            </div>
+
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Install AD DS -->
+      <section class="proj-section" id="install-ad-ds-role">
+        <div class="content-block">
+          <h2 class="section-title">Install Active Directory Domain Services</h2>
+
+          <p class="section-intro">
+            Installing Active Directory Domain Services (AD DS) is a critical step in setting up a domain environment.
+            This process involves promoting the server to a domain controller and configuring the necessary domain
+            settings.
+          </p>
+
+          <div class="step-group">
+
+            <div class="step-header">
+              <div class="step-num">5</div>
+              <div class="step-header-text">
+                <h3>Install AD DS Role</h3>
+                <p>Install the Active Directory Domain Services role on the server.</p>
+              </div>
+            </div>
+
+            <div class="content-block">
+              <h4>Steps to Install AD DS</h4>
+              <ul class="checklist">
+                <li>Open <strong>Server Manager</strong> from the Start menu</li>
+                <li>Click <strong>Manage</strong> in the top-right corner</li>
+                <li>Select <strong>Add Roles and Features</strong></li>
+                <li>In the wizard, click <strong>Next</strong> on the Before You Begin screen</li>
+                <li>Select <strong>Role-based or feature-based installation</strong> and click Next</li>
+                <li>Ensure your server <strong>GY01</strong> is selected, then click Next</li>
+                <li>Scroll and check <strong>Active Directory Domain Services (AD DS)</strong></li>
+                <li>When prompted, click <strong>Add Features</strong></li>
+                <li>Click <strong>Next</strong> through the Features section</li>
+                <li>Review the AD DS information page and click Next</li>
+                <li>Click <strong>Install</strong> to begin installation</li>
+                <li>Wait for installation to complete (do not close the window)</li>
+              </ul>
+            </div>
+
+            <!-- Screenshot: Installed AD DS -->
+            <div class="screenshot-section">
+              <h4>Installed AD DS</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                After the installation of the Active Directory Domain Services role is complete, the Server Manager
+                dashboard confirms that AD DS is installed and ready for configuration.
+              </p>
+
+              <img src="AD-Screenshots/AD11.png" alt="Agent investigating Wi-Fi connectivity issue in osTicket"
+                style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Promote to Domain Controller -->
+      <section class="proj-section" id="promote-to-domain-controller">
+        <div class="content-block">
+          <h2 class="section-title">Promote to Domain Controller</h2>
+
+          <p class="section-intro">
+            After installing the AD DS role, the next step is to promote the server to a Domain Controller. This process
+            involves configuring the domain name, setting up DNS, and finalizing the domain controller settings to
+            establish a functional Active Directory environment.
+          </p>
+
+          <div class="step-group">
+
+            <div class="step-header">
+              <div class="step-num">6</div>
+              <div class="step-header-text">
+                <h3>Promoting the Server to Domain Controller</h3>
+                <p>Configure the server as a domain controller for the Active Directory environment.</p>
+              </div>
+            </div>
+
+            <div class="content-block">
+              <h4>Steps to Promote Server (GY01)</h4>
+              <ul class="checklist">
+                <li>Open <strong>Server Manager</strong></li>
+                <li>Click the <strong>notification flag</strong> (⚠️) in the top-right corner</li>
+                <li>Select <strong>Promote this server to a domain controller</strong></li>
+                <li>In Deployment Configuration, select <strong>Add a new forest</strong></li>
+                <li>Enter the root domain name as <strong>lab.local</strong></li>
+                <li>Click <strong>Next</strong></li>
+                <li>Set a <strong>Directory Services Restore Mode (DSRM) password</strong></li>
+                <li>Click <strong>Next</strong> through DNS Options (ignore warnings if any)</li>
+                <li>Verify the NetBIOS name is <strong>LAB</strong></li>
+                <li>Click <strong>Next</strong> through remaining settings</li>
+                <li>Click <strong>Install</strong> to begin promotion</li>
+                <li>Wait for the server to restart automatically after installation</li>
+              </ul>
+            </div>
+
+            <!-- Screenshot: Investigation -->
+            <div class="screenshot-section">
+              <h4>Promotion Process Screenshot</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                After completing the promotion process, the server restarts and is now configured as a Domain Controller
+                for the
+                company.local domain for the Active Directory management. How we know the promotion was successful is by
+                logging in with the new domain credentials and checking tools like Active Directory Users and Computers,
+                DNS Manager.
+
+                <img src="AD-Screenshots/AD14.png" alt="Ticket escalation to system administrators in osTicket"
+                  style="width:100%; border:1px solid var(--border); border-radius:8px;">
+
+                <img src="AD-Screenshots/AD13.png" alt="Ticket escalation to system administrators in osTicket"
+                  style="width:100%; border:1px solid var(--border); border-radius:8px;">
+            </div>
+
+          </div>
+
+          <!-- Set up Client machine to join the domain -->
+          <section class="proj-section" id="join-domain">
+            <h2 class="section-title">Set up Client Machine to Join the Domain</h2>
+
+            <p class="section-intro">
+              After the domain controller is established, client machines can be configured to join the Active Directory
+              domain, enabling centralized management and authentication.
+            </p>
+
+            <div class="step-group">
+
+              <div class="step-header">
+                <div class="step-num">7</div>
+                <div class="step-header-text">
+                  <h3>Setting Up the Client Machine (Windows 10/11)</h3>
+                  <p>Configure the client machine to join the Active Directory domain.</p>
+                </div>
+              </div>
+
+              <div class="content-block">
+                <h4>Configure Client PC (WS-01)</h4>
+                <ul class="checklist">
+                  <li>Open <strong>System Properties</strong> (This PC → Properties)</li>
+                  <li>Click <strong>Rename this PC</strong></li>
+                  <li>Set the computer name to <strong>WS-01</strong></li>
+                  <li>Restart the computer after renaming</li>
+                  <li>Open <strong>Control Panel → Network and Internet → Network Connections</strong></li>
+                  <li>Right-click <strong>Ethernet → Properties</strong></li>
+                  <li>Select <strong>Internet Protocol Version 4 (IPv4)</strong></li>
+                  <li>Set Preferred DNS Server to <strong>10.0.2.5</strong> (your Domain Controller)</li>
+                  <li>Click <strong>OK</strong> to save settings</li>
+                  <li>Go back to <strong>System Properties → Computer Name → Change</strong></li>
+                  <li>Select <strong>Domain</strong> instead of Workgroup</li>
+                  <li>Enter the domain name: <strong>lab.local</strong></li>
+                  <li>Click <strong>OK</strong></li>
+                  <li>When prompted, enter domain credentials:</li>
+                  <li><strong>Username:</strong> LAB\Administrator</li>
+                  <li><strong>Password:</strong> (your domain admin password)</li>
+                  <li>Wait for the message: <strong>“Welcome to the lab.local domain”</strong></li>
+                  <li>Restart the client machine</li>
+                </ul>
+              </div>
+
+              <!-- Connecting Vm to Domain -->
+              <div class="screenshot-section">
+                <h4>Logging In the Domain in the Client Machine</h4>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                  After joining the domain, the client machine (WS-01) can log in using domain credentials. This
+                  confirms
+                  that the client is successfully connected to the Active Directory environment and can communicate with
+                  the domain
+
+                  <img src="AD-Screenshots/AD16.png" alt="Ticket escalation to system administrators in osTicket"
+                    style="width:100%; border:1px solid var(--border); border-radius:8px;">
+
+                  <img src="AD-Screenshots/AD15.png" alt="Ticket escalation to system administrators in osTicket"
+                    style="width:100%; border:1px solid var(--border); border-radius:8px;">
+              </div>
+
+              <div style="margin-top: 2rem; text-align: center;">
+                <a href="ad-directory-lab.html" class="next-btn">
+                  Active Directory Lab →
+                </a>
+              </div>
+            </div>
+
+
+          </section>
+        </div>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer style="position:relative;overflow:hidden">
+    <svg class="ft-botanical" viewBox="0 0 220 90" fill="none">
+      <path d="M220 90 Q170 60 185 30 Q195 10 160 0" stroke="#4ade80" stroke-width="1.5" fill="none" />
+      <path d="M185 30 Q215 20 220 5 Q198 22 185 30Z" fill="#22c55e" />
+      <path d="M185 30 Q200 50 215 48 Q198 42 185 30Z" fill="#10b981" opacity="0.7" />
+      <circle cx="185" cy="30" r="3" fill="#4ade80" opacity="0.5" />
+    </svg>
+    <p><strong>Gideon Enejo</strong> · IT Support Specialist · <a
+        href="mailto:enejogideon2004@gmail.com">enejogideon2004@gmail.com</a></p>
+    <p style="margin-top:0.5rem">© 2026</p>
+  </footer>
+
+  <script>
+    // Sidebar navigation
+    document.querySelectorAll('.sidebar-links a').forEach(link => {
+      link.addEventListener('click', function (e) {
+        document.querySelectorAll('.sidebar-links a').forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Highlight active section on scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          document.querySelectorAll('.sidebar-links a').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + id) link.classList.add('active');
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.proj-section').forEach(section => observer.observe(section));
+
+    // Particles
+    (function () {
+      const container = document.getElementById('bt-particles');
+      if (!container) return;
+      const leafSVGs = [
+        `<svg width="14" height="20" viewBox="0 0 14 20" fill="none"><path d="M7 20 Q0 11 4 4 Q7 0 10 4 Q14 8 7 20Z" fill="#4ade80" opacity="0.6"/><line x1="7" y1="20" x2="7" y2="4" stroke="#4ade80" stroke-width="0.7" opacity="0.5"/></svg>`,
+        `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 12 Q0 7 3 3 Q6 0 9 3 Q12 6 6 12Z" fill="#22d3a0" opacity="0.5"/></svg>`,
+      ];
+      for (let i = 0; i < 8; i++) {
+        const el = document.createElement('div');
+        el.className = 'bt-particle';
+        el.innerHTML = leafSVGs[i % leafSVGs.length];
+        el.style.left = (Math.random() * 100) + '%';
+        el.style.animationDuration = (14 + Math.random() * 18) + 's';
+        el.style.animationDelay = (Math.random() * 12) + 's';
+        container.appendChild(el);
+      }
+    })();
+  </script>
+</body>
+
+</html>
